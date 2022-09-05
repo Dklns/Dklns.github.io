@@ -1,0 +1,135 @@
+<h1 id="语法"><a class="anchor" href="#语法">#</a> 语法</h1>
+<h1 id="未分类集锦"><a class="anchor" href="#未分类集锦">#</a> 未分类集锦</h1>
+<ul>
+<li>
+<p>var 的声明提升</p>
+<p>使用 var 声明的变量会自动提升到函数作用域顶部</p>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>   <span class="token keyword">var</span> age <span class="token operator">=</span> <span class="token number">23</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">// undefined</span></pre></td></tr></table></figure><p>这样做不会报错，因为 ECMAScipt 运行时把它看成等价于如下代码</p>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>   <span class="token keyword">var</span> age<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>age<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>   age <span class="token operator">=</span> <span class="token number">23</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure></li>
+<li>
+<p>let 声明</p>
+<p>对于 let 最重要的特点就是作用域是块作用域，块作用域简单理解就是 {} 中的作用域，无论是 if {} 还是 for {} 什么的</p>
+<p>（而 var 的作用域是函数作用域）</p>
+<p>在什么块作用域中声明的变量就只能在什么块作用域中有效</p>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">if</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre><span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'klns'</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="4"></td><td><pre><span class="token keyword">let</span> name <span class="token operator">=</span> <span class="token string">'llxs'</span><span class="token punctuation">;</span> <span class="token comment">// 这是两个变量</span></pre></td></tr></table></figure></li>
+<li>
+<p>const</p>
+<p>const 与 let 差不多，但是是声明一个常量，也就是不能修改变量的值，且必须声明时就赋值</p>
+</li>
+<li>
+<p>BigInt</p>
+<p>用于表示极大的数字</p>
+<p>** 注意事项：** 不能让 BigInt 和 Number 直接进行运算，也不能用 Math 对象去操作 BigInt 数字</p>
+</li>
+<li>
+<p>模板字符串较于一般字符串</p>
+<p>1. 可以嵌入表达式  <code>${expression}</code></p>
+<p>2. 可以直接写入多行字符串，而不需用 \n</p>
+</li>
+</ul>
+<h1 id="索引集合类"><a class="anchor" href="#索引集合类">#</a> 索引集合类</h1>
+<h2 id="数组对象"><a class="anchor" href="#数组对象">#</a> 数组对象</h2>
+<h3 id="方法"><a class="anchor" href="#方法">#</a> 方法</h3>
+<p>详细看 mdn</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Indexed_collections#%E9%81%8D%E5%8E%86%E6%95%B0%E7%BB%84_interating_over_array">索引集合类 (Indexed collections) - JavaScript | MDN</a></p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>concat()</td>
+<td>连接两个数组并返回一个新的数组。</td>
+</tr>
+<tr>
+<td>join(deliminator = ',')</td>
+<td>将数组的所有元素连接成一个字符串。</td>
+</tr>
+<tr>
+<td>push()</td>
+<td>在数组末尾添加一个或多个元素，并返回数组操作后的长度。</td>
+</tr>
+<tr>
+<td>pop()</td>
+<td>从数组移出最后一个元素，并返回该元素。</td>
+</tr>
+<tr>
+<td>shift()</td>
+<td>从数组移出第一个元素，并返回该元素。</td>
+</tr>
+<tr>
+<td>unshift()</td>
+<td>在数组开头添加一个或多个元素，并返回数组的新长度。</td>
+</tr>
+<tr>
+<td>slice(start_index, upto_index)</td>
+</tr>
+<tr>
+<td></td>
+<td>从数组提取一个片段，并作为一个新数组返回。(不包含到达索引处）</td>
+</tr>
+<tr>
+<td>splice(index, count_to_remove, addElement1, addElement2, ...)</td>
+<td>从数组移出一些元素，（可选）并替换它们。</td>
+</tr>
+<tr>
+<td>reverse()</td>
+<td>颠倒数组元素的顺序：第一个变成最后一个，最后一个变成第一个。</td>
+</tr>
+<tr>
+<td>sort()</td>
+<td>给数组元素排序。</td>
+</tr>
+<tr>
+<td>indexOf(searchElement[, fromIndex])</td>
+<td>在数组中搜索 searchElement 并返回第一个匹配的索引。</td>
+</tr>
+<tr>
+<td>lastIndexOf(searchElement[, fromIndex])</td>
+<td>和 indexOf 差不多，但这是从结尾开始，并且是反向搜索。</td>
+</tr>
+<tr>
+<td>forEach(callback[, thisObject])</td>
+<td>在数组每个元素项上执行 callback。</td>
+</tr>
+<tr>
+<td>map(callback[, thisObject])</td>
+<td>在数组的每个单元项上执行 callback 函数，并把返回包含回调函数返回值的新数组（译者注：也就是遍历数组，并通过 callback 对数组元素进行操作，并将所有操作结果放入数组中并返回该数组）。</td>
+</tr>
+<tr>
+<td>filter(callback[, thisObject])</td>
+<td>返回一个包含所有在回调函数上返回为 true 的元素的新数组（译者注：callback 在这里担任的是过滤器的角色，当元素符合条件，过滤器就返回 true，而 filter 则会返回所有符合过滤条件的元素）。</td>
+</tr>
+<tr>
+<td>every(callback[, thisObject])</td>
+<td>当数组中每一个元素在 callback 上被返回 true 时就返回 true（译者注：同上，every 其实类似 filter，只不过它的功能是判断是不是数组中的所有元素都符合条件，并且返回的是布尔值）。</td>
+</tr>
+<tr>
+<td>some(callback[, thisObject])</td>
+<td>只要数组中有一项在 callback 上被返回 true，就返回 true（译者注：同上，类似 every，不过前者要求都符合筛选条件才返回 true，后者只要有符合条件的就返回 true）。</td>
+</tr>
+<tr>
+<td>reduce(callback[, initialValue])</td>
+<td>使用回调函数 callback (firstValue, secondValue)</td>
+</tr>
+<tr>
+<td>把数组列表计算成一个单一值（译者注：他数组元素两两递归处理的方式把数组计算成一个值）</td>
+</tr>
+<tr>
+<td>reduceRight(callback[, initalvalue])</td>
+<td>reduce () 相似，但这从最后一个元素开始的。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="带键的集合"><a class="anchor" href="#带键的集合">#</a> 带键的集合</h1>
+<h2 id="map"><a class="anchor" href="#map">#</a> Map</h2>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_collections#%E6%98%A0%E5%B0%84">带键的集合 - JavaScript | MDN</a></p>
+<h2 id="set"><a class="anchor" href="#set">#</a> Set</h2>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Keyed_collections#%E9%9B%86%E5%90%88">带键的集合 - JavaScript | MDN</a></p>
+<h1 id="语句与声明"><a class="anchor" href="#语句与声明">#</a> 语句与声明</h1>
+<h2 id="function"><a class="anchor" href="#function">#</a> function*</h2>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*">function* - JavaScript | MDN</a></p>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">iterArray</span><span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="4"></td><td><pre>            <span class="token keyword">yield</span><span class="token operator">*</span> <span class="token function">iterArray</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// 递归</span></pre></td></tr><tr><td data-num="5"></td><td><pre>        <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>    <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="7"></td><td><pre>        <span class="token keyword">yield</span> arr<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="8"></td><td><pre>    <span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="9"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr><tr><td data-num="10"></td><td><pre></pre></td></tr><tr><td data-num="11"></td><td><pre><span class="token keyword">let</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'f'</span><span class="token punctuation">,</span> <span class="token string">'g'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'h'</span><span class="token punctuation">,</span> <span class="token string">'i'</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span></pre></td></tr><tr><td data-num="12"></td><td><pre><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token keyword">of</span> <span class="token function">iterArray</span><span class="token punctuation">(</span>arr<span class="token punctuation">)</span><span class="token punctuation">)</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span></pre></td></tr></table></figure>

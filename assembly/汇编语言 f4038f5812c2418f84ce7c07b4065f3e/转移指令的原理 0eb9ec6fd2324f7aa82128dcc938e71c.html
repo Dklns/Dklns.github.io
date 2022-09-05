@@ -1,0 +1,32 @@
+<h1 id="转移指令的原理"><a class="anchor" href="#转移指令的原理">#</a> 转移指令的原理</h1>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656057962-b4121935-72ff-4b2d-b8c6-024085098109.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656057962-b4121935-72ff-4b2d-b8c6-024085098109.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656090831-8a466bbc-574d-4012-bb07-bdb75159c98e.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656090831-8a466bbc-574d-4012-bb07-bdb75159c98e.png" /></p>
+<h3 id="offset"><a class="anchor" href="#offset">#</a> offset</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656141579-1df034c6-4314-4787-8f0e-8c4e265b9c19.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656141579-1df034c6-4314-4787-8f0e-8c4e265b9c19.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656440727-90a6ecda-a77a-4f54-b6f4-81c3acc49724.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656440727-90a6ecda-a77a-4f54-b6f4-81c3acc49724.png" /></p>
+<h3 id="jmp指令"><a class="anchor" href="#jmp指令">#</a> jmp 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656545743-48deae04-38c6-4209-8415-a8638d733ee3.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656545743-48deae04-38c6-4209-8415-a8638d733ee3.png" /></p>
+<p><strong>jmp short 标号</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656686618-88e78301-0c78-405a-87d9-f5f55c947081.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656686618-88e78301-0c78-405a-87d9-f5f55c947081.png" /></p>
+<p>jmp 给出的并非目的地址，而是相对 jmp 指令后第一个字节的相对位移</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656731035-4d8d94a6-1647-45c7-8a1b-ff70ce1a292a.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656731035-4d8d94a6-1647-45c7-8a1b-ff70ce1a292a.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657577662-71c66981-15a5-406c-abe2-a9ca0cd71977.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657577662-71c66981-15a5-406c-abe2-a9ca0cd71977.png" /></p>
+<p>jmp short 标号 8 位  段内转移</p>
+<p>jmp near ptr 标号 16 位 段内转移</p>
+<p>jmp far ptr 标号  32 位 段间转移</p>
+<h3 id="jmp后接除标号外的形式"><a class="anchor" href="#jmp后接除标号外的形式">#</a> jmp 后接除标号外的形式</h3>
+<p>（1）jmp 16 位寄存器</p>
+<p>（2）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657874256-c0b34c64-b3c6-4081-a041-2c29a9b84019.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657874256-c0b34c64-b3c6-4081-a041-2c29a9b84019.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657883053-7350a374-9f3e-4dc3-9b92-c3e0c07ea8ce.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657883053-7350a374-9f3e-4dc3-9b92-c3e0c07ea8ce.png" /></p>
+<p>对于向前转移</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656805511-b1cd52fe-bc68-4a61-ac7b-30fb0d1e5194.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647656805511-b1cd52fe-bc68-4a61-ac7b-30fb0d1e5194.png" /></p>
+<p>对于向后转移</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657003234-491a409a-92f1-4fbe-9999-26d09e809e1c.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657003234-491a409a-92f1-4fbe-9999-26d09e809e1c.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657012780-249629bd-c68b-4008-a0f1-fd0958448754.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647657012780-249629bd-c68b-4008-a0f1-fd0958448754.png" /></p>
+<h3 id="jcxz指令"><a class="anchor" href="#jcxz指令">#</a> jcxz 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658000621-93940e42-c514-4632-989a-5bf99c44da61.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658000621-93940e42-c514-4632-989a-5bf99c44da61.png" /></p>
+<h3 id="loop指令"><a class="anchor" href="#loop指令">#</a> loop 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658072627-80210679-98b9-4531-924c-e905513312dc.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658072627-80210679-98b9-4531-924c-e905513312dc.png" /></p>
+<h3 id="编译器对转移位移超界的检测"><a class="anchor" href="#编译器对转移位移超界的检测">#</a> 编译器对转移位移超界的检测</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658149228-d11f84eb-2676-473b-9470-29907d455de0.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647658149228-d11f84eb-2676-473b-9470-29907d455de0.png" /></p>

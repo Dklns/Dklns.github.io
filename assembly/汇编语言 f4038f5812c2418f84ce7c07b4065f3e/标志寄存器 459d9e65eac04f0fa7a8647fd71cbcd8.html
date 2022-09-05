@@ -1,0 +1,132 @@
+<h1 id="标志寄存器"><a class="anchor" href="#标志寄存器">#</a> 标志寄存器</h1>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933504689-3321a2f1-c9af-4945-9383-141b2a09ccec.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933504689-3321a2f1-c9af-4945-9383-141b2a09ccec.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933537769-619e5465-4162-467a-bdbf-4f40d0aa1ca5.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933537769-619e5465-4162-467a-bdbf-4f40d0aa1ca5.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933572896-7c8dcad0-2eee-4672-9376-13a07d78eff8.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933572896-7c8dcad0-2eee-4672-9376-13a07d78eff8.png" /></p>
+<h3 id="zf标志"><a class="anchor" href="#zf标志">#</a> ZF 标志</h3>
+<p>它记录相关指令执行后，其结果是否为 0. 如果结果为 0，那么 ZF = 1，如果结果不为 0，那么 ZF = 0</p>
+<p>这个指令很好记住，Z 就代表 zero</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933713355-b4f6f859-0f84-4118-90a9-de8d465b6bd3.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933713355-b4f6f859-0f84-4118-90a9-de8d465b6bd3.png" /></p>
+<h3 id="pf标志"><a class="anchor" href="#pf标志">#</a> PF 标志</h3>
+<p>parity flag (奇偶标志器)</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933779876-6376585d-9dee-4b24-acd4-6aec9d8d1476.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933779876-6376585d-9dee-4b24-acd4-6aec9d8d1476.png" /></p>
+<h3 id="sf标志"><a class="anchor" href="#sf标志">#</a> SF 标志</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933812093-d4949bc0-463b-424e-b9f4-b272d0f2f5f6.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647933812093-d4949bc0-463b-424e-b9f4-b272d0f2f5f6.png" /></p>
+<p>计算机中一个数据可以看作是有符号数，也可以看作是无符号数，这也就是说对于同一个二进制数据，计算机可以将它当作无符号数来运算，也可以当作有符号数来运算</p>
+<p>一个数在运算时包含了两种含义，我们想用那个这就取决于我们使用哪些标志</p>
+<p>对于有符号数，SF 记录这个数是否为负数，而对于无符号数，这个标志没有意义，因为如果我们把这个标志用于一个数，那么这个数就被看作是有符号数了</p>
+<h3 id="cf标志"><a class="anchor" href="#cf标志">#</a> CF 标志</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934187043-28da5fb6-1f05-4543-a204-43b05f75bd71.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934187043-28da5fb6-1f05-4543-a204-43b05f75bd71.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934203259-69bed1f7-968c-4ca2-9439-fac21f05d3d4.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934203259-69bed1f7-968c-4ca2-9439-fac21f05d3d4.png" /></p>
+<p>当两个无符号数相加时，可能发生从最高有效位向更高位进位。</p>
+<p>当两个无符号数相减时，可能发生向更高位借位</p>
+<p>为什么可以借位呢，我们这样想，无符号数小减大，不可能产生负数，所以就表现为向更高位借位</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934484366-f04d7d1d-694f-477d-8526-8f6ec0a86de1.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647934484366-f04d7d1d-694f-477d-8526-8f6ec0a86de1.png" /></p>
+<h3 id="of标志"><a class="anchor" href="#of标志">#</a> OF 标志</h3>
+<p>当有符号数运算发生溢出时，OF 值为 1 否则为 0</p>
+<p>溢出有正溢出和负溢出</p>
+<h3 id="adc指令"><a class="anchor" href="#adc指令">#</a> adc 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935205878-f846a191-94f0-429a-9788-6082d0b5bb70.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935205878-f846a191-94f0-429a-9788-6082d0b5bb70.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935305777-6347d50f-85c5-464f-8035-399313e69d10.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935305777-6347d50f-85c5-464f-8035-399313e69d10.png" /></p>
+<p>add 最多只能进行和为 65535 以内的加法，不能进行更大的运算</p>
+<p>但如果用 adc 就可以实现</p>
+<p>这样想，如果将一个 24 位的数拆分成 3 个 8 位数，位表示不变，ax 存放最低位，bx 放次低位，cx 放高位</p>
+<p>ax 加上另一个数的最低 8 位，bx 加上另一个数的次低 8 位再加上 CF 中的值，低位相加时进位了，次低位相加时就再加 1 否则加 0，高位相加是也是如此</p>
+<p>计算 1EF0001000H + 2010001EF0H</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935795670-584dfa8b-0066-461d-a562-ea492150be52.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935795670-584dfa8b-0066-461d-a562-ea492150be52.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935801646-d05ca4b8-4fe0-4766-8b94-7bc8c1ba7fcd.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935801646-d05ca4b8-4fe0-4766-8b94-7bc8c1ba7fcd.png" /></p>
+<h3 id="sbb指令"><a class="anchor" href="#sbb指令">#</a> sbb 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935874292-0de1a335-aae0-4547-9056-2e6a013b22f4.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935874292-0de1a335-aae0-4547-9056-2e6a013b22f4.png" /></p>
+<p>与 adc 相仿</p>
+<p>计算 003E1000H - 00202000H</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935920428-399cd0d4-7fdd-41a9-9bdc-56ca7200c4a2.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647935920428-399cd0d4-7fdd-41a9-9bdc-56ca7200c4a2.png" /></p>
+<h3 id="cmp指令"><a class="anchor" href="#cmp指令">#</a> cmp 指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647936609217-885727be-e6e8-4841-980e-017c0ddb3567.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647936609217-885727be-e6e8-4841-980e-017c0ddb3567.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647936629923-ac4a45c6-b116-4882-af3c-9f95a5177b03.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647936629923-ac4a45c6-b116-4882-af3c-9f95a5177b03.png" /></p>
+<p>简而言之就是 cmp 指令执行后会使标志改变，然后我们可以根据标志判断比较的两数的关系</p>
+<p>对于无符号数</p>
+<p>cmp ax,bx</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937328793-22e2fc1a-aa2a-42b6-be73-9cd987cf9fbb.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937328793-22e2fc1a-aa2a-42b6-be73-9cd987cf9fbb.png" /></p>
+<p>对于有符号数</p>
+<p>cmp ah,bh</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937451649-dc92c93e-0e8e-4195-b51a-daffc57f6015.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937451649-dc92c93e-0e8e-4195-b51a-daffc57f6015.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937469538-aca29be1-45eb-4e12-a9d1-a87aaf37fa4c.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937469538-aca29be1-45eb-4e12-a9d1-a87aaf37fa4c.png" /></p>
+<h3 id="检测比较结果的条件转移指令"><a class="anchor" href="#检测比较结果的条件转移指令">#</a> 检测比较结果的条件转移指令</h3>
+<p>简而言之就是这些指令跟在 cmp 指令执行后，根据 cmp 的比较结果进行条件判断后跳转</p>
+<p>注意，这些指令只有和 cmp 指令一起用才具有其比较含义</p>
+<p>在使用这些指令时，它们具有强烈的逻辑意义，我们不必思考标志，按照逻辑使用就行</p>
+<p>无符号数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937899465-df499251-975d-453b-9ca9-6620f877b388.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647937899465-df499251-975d-453b-9ca9-6620f877b388.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938406194-3e83272a-6297-4104-bf31-fa947682eff3.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938406194-3e83272a-6297-4104-bf31-fa947682eff3.png" /></p>
+<p>根据有符号数的比较结果进行转移的条件转移指令的工作原理和无符号的相同，只是检测了不同的标志位</p>
+<h3 id="df标志和串传送指令"><a class="anchor" href="#df标志和串传送指令">#</a> DF 标志和串传送指令</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938342813-4b1772b5-f19a-4313-9b80-5616b2dc6b2c.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938342813-4b1772b5-f19a-4313-9b80-5616b2dc6b2c.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938369640-043a02e7-ce6c-4eed-8ec3-f89a19d484bf.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938369640-043a02e7-ce6c-4eed-8ec3-f89a19d484bf.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938438752-f4645a15-54e2-46b7-8c1e-e71696241bc3.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938438752-f4645a15-54e2-46b7-8c1e-e71696241bc3.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938454865-612a9faa-4e13-4516-b5d2-f0e2e5a5ac1b.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938454865-612a9faa-4e13-4516-b5d2-f0e2e5a5ac1b.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938485232-a081ca14-43ec-4d39-9013-b309757f9afe.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938485232-a081ca14-43ec-4d39-9013-b309757f9afe.png" /></p>
+<p>rep movsb</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938520505-91a2c9a6-6256-49cb-9123-aa0f87d44fd5.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938520505-91a2c9a6-6256-49cb-9123-aa0f87d44fd5.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938548634-952de943-7682-4c25-8c55-5ad247876ef2.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938548634-952de943-7682-4c25-8c55-5ad247876ef2.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938563252-5388028e-f4b5-468b-b7a4-50fbb6a0e98e.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938563252-5388028e-f4b5-468b-b7a4-50fbb6a0e98e.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938626212-0fa44067-fe49-4445-b89c-7140f4a432ea.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938626212-0fa44067-fe49-4445-b89c-7140f4a432ea.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938637123-046b92bd-5d63-41c8-88f6-d3681fa33b6c.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938637123-046b92bd-5d63-41c8-88f6-d3681fa33b6c.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938649986-21ccf466-4f35-4877-bf5b-e976178bcd68.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647938649986-21ccf466-4f35-4877-bf5b-e976178bcd68.png" /></p>
+<h3 id="pushf和popf"><a class="anchor" href="#pushf和popf">#</a> pushf 和 popf</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647939031481-a0674345-5c10-4447-a3b2-c02a11ba0469.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647939031481-a0674345-5c10-4447-a3b2-c02a11ba0469.png" /></p>
+<h3 id="实验-letterc"><a class="anchor" href="#实验-letterc">#</a> 实验 - letterc</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647940147563-bd9eadd0-f3d8-4228-ac4f-878de38dd335.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647940147563-bd9eadd0-f3d8-4228-ac4f-878de38dd335.png" /></p>
+<pre><code>assume cs:code
+
+data segment
+      db &quot;Beginner's All-purpose Symbolic Instruction Code.&quot;,0
+data ends
+
+stack segment
+      db 128 dup(0)
+stack ends
+
+code segment
+start:
+      mov ax,data
+      mov ds,ax
+      mov si,0
+
+      call letterc
+
+      mov dh,5
+      mov dl,3
+      mov cl,2
+
+      call show_str  ;该子程序未给出，详见 “call和ret指令” 实验-show-str
+
+      mov ax,4100H
+      int 21H
+
+letterc:
+      push cx
+      push si
+
+lettercStart:
+      mov cx,0
+      mov cl,[si]
+      jcxz lettercRet
+      cmp cl,97      ;判断字符ASCII码是否大于等于97，即a
+      jb next
+      cmp cl,122     ;判断字符ASCII码是否小于等于122，即z
+      ja next
+      sub cl,32
+      mov [si],cl
+
+next:
+      inc si
+      jmp lettercStart
+
+lettercRet:
+       pop si
+       pop cx
+
+       ret
+
+code ends
+end start
+</code></pre>

@@ -1,0 +1,86 @@
+<h1 id="端口"><a class="anchor" href="#端口">#</a> 端口</h1>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120243864-f0e58aff-e4dd-4053-a1c6-47b575028501.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120243864-f0e58aff-e4dd-4053-a1c6-47b575028501.png" /></p>
+<h3 id="端口的读写"><a class="anchor" href="#端口的读写">#</a> 端口的读写</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120293623-ee7ca843-d46a-4095-ba71-f884bfe43332.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120293623-ee7ca843-d46a-4095-ba71-f884bfe43332.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120360030-ae04e30f-fa60-4102-887a-2b7aed521077.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120360030-ae04e30f-fa60-4102-887a-2b7aed521077.png" /></p>
+<p><strong>注意：in 是 将右边的端口中的数据读入到 ax 或 al 中，而 out 是将右边的 ax 或 al 中的数据写入端口中</strong></p>
+<h3 id="cmos-ram芯片"><a class="anchor" href="#cmos-ram芯片">#</a> CMOS RAM 芯片</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120554764-7ec039cb-6e6c-4604-b54f-8c0f302a6ff7.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120554764-7ec039cb-6e6c-4604-b54f-8c0f302a6ff7.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120582258-aabeef4c-7086-4446-9195-eb613749e0db.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120582258-aabeef4c-7086-4446-9195-eb613749e0db.png" /></p>
+<h3 id="shl和shr指令"><a class="anchor" href="#shl和shr指令">#</a> shl 和 shr 指令</h3>
+<p>这两个指令很好记，就是ｓｈｉｆｔ　ｌｅｆｔ和ｒｉｇｈｔ</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120746813-82f6bca6-07a2-4e71-a2a4-3708293ce2a0.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120746813-82f6bca6-07a2-4e71-a2a4-3708293ce2a0.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120945896-82e5a603-f472-42b4-a694-a0dc73334a5f.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120945896-82e5a603-f472-42b4-a694-a0dc73334a5f.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120956862-245039b1-794b-44bb-a53e-f5cb7f8b0535.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120956862-245039b1-794b-44bb-a53e-f5cb7f8b0535.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120971568-28ea763b-f5c9-478e-a981-43e3dfa26999.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648120971568-28ea763b-f5c9-478e-a981-43e3dfa26999.png" /></p>
+<h3 id="cmos-ram中储存的时间信息"><a class="anchor" href="#cmos-ram中储存的时间信息">#</a> CMOS RAＭ中储存的时间信息</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121094185-932a30fd-b5e0-4b54-93ff-f002e3b78434.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121094185-932a30fd-b5e0-4b54-93ff-f002e3b78434.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121477981-c4e0ae2a-baaf-4bfd-9781-999d33109cfd.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121477981-c4e0ae2a-baaf-4bfd-9781-999d33109cfd.png" /></p>
+<p>明确我们需要的时间，然后从 70h 端口写入对应的存放单元，再从 71h 读入数据，因为数据是 BCD 码的形式，且放在 cl 中，所以我们可以进行处理</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121501502-8e4478e1-2089-4cbf-9a68-7a49079eb6c2.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648121501502-8e4478e1-2089-4cbf-9a68-7a49079eb6c2.png" /></p>
+<h3 id="实验-显示现在时间"><a class="anchor" href="#实验-显示现在时间">#</a> 实验 - 显示现在时间</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648126014622-77a5abad-be23-4abc-8cb5-ba7eeff4c231.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1648126014622-77a5abad-be23-4abc-8cb5-ba7eeff4c231.png" /></p>
+<p>我采用的是封装一个子程序来实现，因为读入写入的操作会有 6 次且都是相似的操作，所以可以将 CMOS RAM 中储存时间的地址分别保存在一块，还有要求的格式中的符号</p>
+<pre><code>assume cs:code,ds:data
+
+data segment
+db 9,8,7,4,2,0
+db '/','/',' ',':',':',' '
+data ends
+
+code segment
+start:
+     mov ax,0b800h
+     mov es,ax
+     mov di,8*160+36*2
+
+     mov ax,data
+     mov ds,ax
+     mov si,0
+     mov bx,6
+     call showTime
+
+     mov ax,4c00H
+     int 21h
+
+showTime:
+     push ax
+     push cx
+     push es
+     push bx
+     push di
+     push si
+startTime:
+     mov cx,6
+
+s:   push cx
+     mov al,[si]
+     out 70h,al
+     in al,71h
+     mov ah,al
+     mov cl,4
+     shr ah,cl
+     and al,00001111b
+     add ah,30h
+     add al,30h
+     mov byte ptr es:[di],ah
+     mov byte ptr es:[di+2],al
+     mov al,[bx]
+     mov es:[di+4],al
+     add di,6   ;这里加6是因为每次都在显存放了表示时间的两个字符和一个格式字符
+     inc si
+     inc bx
+     pop cx
+     loop s
+
+     pop si
+     pop di
+     pop bx
+     pop es
+     pop cx
+     pop ax
+     ret
+code ends
+end start
+
+</code></pre>

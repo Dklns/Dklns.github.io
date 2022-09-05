@@ -1,0 +1,364 @@
+<h1 id="call和ret指令"><a class="anchor" href="#call和ret指令">#</a> call 和 ret 指令</h1>
+<h3 id="ret和retf"><a class="anchor" href="#ret和retf">#</a> ret 和 retf</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647692671750-aea70373-d13e-41fd-bc67-b354af13cb7f.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647692671750-aea70373-d13e-41fd-bc67-b354af13cb7f.png" /></p>
+<p><strong>简而言之就是出栈数据到控制指令地址的寄存器中，也就是改变对指令的指向，改变指令的调用顺序</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693334944-7ac45b1f-b1c1-450a-b849-9aab7b03f473.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693334944-7ac45b1f-b1c1-450a-b849-9aab7b03f473.png" /></p>
+<h3 id="call指令"><a class="anchor" href="#call指令">#</a> call 指令</h3>
+<p><strong>简而言之，call ....... 就是把 call 指令后下一字节的地址（偏移地址或全地址）入栈，并将指令执行跳转到指定地址处（偏移地址或全地址）</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693566655-c7cbcd13-a655-4ba2-a45b-b2f426dc71df.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693566655-c7cbcd13-a655-4ba2-a45b-b2f426dc71df.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647768701240-0373db22-efdf-42ee-8537-e4cbc4ccb331.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647768701240-0373db22-efdf-42ee-8537-e4cbc4ccb331.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693585894-f6014825-a643-4eaf-bbb3-aa18d63871f7.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693585894-f6014825-a643-4eaf-bbb3-aa18d63871f7.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693604934-45446b53-e236-453b-bcdb-6fe47c0566e4.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693604934-45446b53-e236-453b-bcdb-6fe47c0566e4.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693809609-1744bc65-4c5c-481c-827a-ab05ace8a206.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693809609-1744bc65-4c5c-481c-827a-ab05ace8a206.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693831446-096a41c5-0cd1-41e0-84a9-64c091042f94.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647693831446-096a41c5-0cd1-41e0-84a9-64c091042f94.png" /></p>
+<h3 id="call和ret的配合使用"><a class="anchor" href="#call和ret的配合使用">#</a> call 和 ret 的配合使用</h3>
+<p>call 能将 call 的下条指令入栈，然后跳转到子程序去执行指令，子程序结束后又可以用 ret 将 call 入栈的指令出栈，使指令执行顺序回到主程序中</p>
+<h3 id="模块化程序设计"><a class="anchor" href="#模块化程序设计">#</a> 模块化程序设计</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647694888847-f2bf30dd-777d-4c15-b04d-bb11622c7f4b.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647694888847-f2bf30dd-777d-4c15-b04d-bb11622c7f4b.png" /></p>
+<h3 id="参数和结果传递的问题"><a class="anchor" href="#参数和结果传递的问题">#</a> 参数和结果传递的问题</h3>
+<p>可以在执行子程序前将参数送入寄存器，在子程序中将结果送入其他寄存器</p>
+<p>但是寄存器始终数量有限，有很多寄存器可能有其他作用，不能空闲出来给参数</p>
+<p>那么可以用栈或连续的内存地址来保存参数和结果</p>
+<p>例子</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695293678-ced5eb60-1e89-4a64-bc1a-11211767cb54.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695293678-ced5eb60-1e89-4a64-bc1a-11211767cb54.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695309316-2fdda43c-9ad9-4c66-a766-7c62b5186931.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695309316-2fdda43c-9ad9-4c66-a766-7c62b5186931.png" /></p>
+<p>这样就可以把参数们看作一个 arguments，即参数数组</p>
+<h3 id="寄存器冲突的问题"><a class="anchor" href="#寄存器冲突的问题">#</a> 寄存器冲突的问题</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695548606-2fc9feff-5bb8-487f-8d1c-cde0fb3d28ab.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695548606-2fc9feff-5bb8-487f-8d1c-cde0fb3d28ab.png" /></p>
+<p>这个子程序很好完成</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695646330-33788438-5263-4dd0-8563-f1c9ee2cd353.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695646330-33788438-5263-4dd0-8563-f1c9ee2cd353.png" /></p>
+<p>但是如果字符串有很多个的时候，我们需要多次调用子程序，那么主程序和子程序都需要使用 cx 寄存器，这就冲突了，主程序和子程序都会对 cx 的数据修改，那么 cx 就不能按各个程序想要的样子使用</p>
+<p>那我们可以在调用子程序之前将会在子程序中使用的寄存器，在栈中备份一份，在子程序结束的时候将其出栈</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695958297-d7ec3583-1d5a-443c-80a6-ac9542d24707.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647695958297-d7ec3583-1d5a-443c-80a6-ac9542d24707.png" /></p>
+<h3 id="实验-显示指定位置的字符串"><a class="anchor" href="#实验-显示指定位置的字符串">#</a> 实验 - 显示指定位置的字符串</h3>
+<p>子程序要求</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647852788257-ea8174b2-2054-4a56-a319-dda3288ddf28.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647852788257-ea8174b2-2054-4a56-a319-dda3288ddf28.png" /></p>
+<p>显示内存的段地址是 b800，假设我们用 di 寄存器来将字符送入显示内存，那么如何将参数中的行和列转化为 di 中的数据呢</p>
+<p>显示内存中一个字符占两个字节，低位字节存放字符 ASCII 码，高位字节存放字符的属性信息</p>
+<p>一行显示 80 个字符，即 160 位，每一列就是两个字节</p>
+<p>所以可以 di = di + dh x 160 + dl x 2</p>
+<pre><code>assume cs:code,ss:stack
+
+data segment
+     db   'welcome to masm!',0
+data ends
+
+stack segment
+     db    128 dup(0)
+stack ends
+
+code segment
+
+  start:  mov ax,stack
+          mov ss,ax
+          mov sp,128
+
+          call init_reg
+
+          mov di,0
+
+ ;为了使代码简洁，思路清晰，对行和列的处理都分别在子程序中处理
+          mov dh,8
+          call get_row
+          add di,ax
+
+          mov dl,3
+          call get_col
+          add di,ax
+
+  ;由于上面的dx寄存器已经空闲了，所以这里可以使用，因为在show_str子程序中，cx用来传字符ASCII码
+  ;以及jcxz的判定，所以我们应该尽量减少cx的其他用途，而实验本身要求cx传颜色属性，在调用子程序前
+  ;我们将其交给dx，那么cx的传参使命就以及完成了
+          mov cl,2
+          mov dl,cl
+
+          mov si,0
+          call show_str
+
+          mov ax,4c00H
+          int 21H
+
+;=============================================
+show_str:
+;在进入执行子程序前，将子程序中需要用到的寄存器入栈
+         push cx
+         push bx
+         push ds
+         push es
+         push si
+         push di
+
+         mov cx,0
+
+stringStart:
+         mov cl,ds:[si]
+         jcxz stringRet
+         mov es:[di],cl
+         mov es:[di+1],dl
+         inc si
+         add di,2
+         jmp stringStart
+
+stringRet:
+;在子程序结束时将之前备份的寄存器倒序出栈
+         pop di
+         pop si
+         pop es
+         pop ds
+         pop bx
+         pop cx
+         ret
+
+;=============================================
+get_col:
+        mov al,2
+        mul dl
+        ret
+
+;=============================================
+get_row: mov al,160
+         mul dh
+;8位乘8位，结果为16位存放在ax中，在把160给al前不需要将ah初始化为0，乘积结果会覆盖掉ax中高位
+;原来的值
+         ret
+
+;============================================
+init_reg:  mov ax,data
+           mov ds,ax
+           mov ax,0b800H
+           mov es,ax
+           ret
+
+code ends
+end start
+
+</code></pre>
+<p>进行了整理后，这个子程序就只需要提供参数给对应的寄存器就行了</p>
+<pre><code>assume cs:code,ss:stack
+
+data segment
+     db   'welcome to masm!',0
+data ends
+
+stack segment
+     db    128 dup(0)
+stack ends
+
+code segment
+
+  start:  mov ax,stack
+          mov ss,ax
+          mov sp,128
+          mov ax,data
+          mov ds,ax
+
+          mov dh,8
+          mov dl,3
+          mov cl,2
+
+          call show_str
+
+          mov ax,4c00H
+          int 21H
+
+;=============================================子程序部分
+show_str:
+         mov si,0
+         mov di,0
+         call init_reg
+
+          call get_row
+          add di,ax
+
+          call get_col
+          add di,ax
+
+          mov dl,cl
+
+         push cx
+         push bx
+         push ds
+         push es
+         push si
+         push di
+
+         mov cx,0
+
+stringStart:
+         mov cl,ds:[si]
+         jcxz stringRet
+         mov es:[di],cl
+         mov es:[di+1],dl
+         inc si
+         add di,2
+         jmp stringStart
+
+;============================================
+init_reg:
+           mov ax,0b800H
+           mov es,ax
+           ret
+
+;=============================================
+get_row: mov al,160
+         mul dh
+         ret
+
+;=============================================
+get_col:
+        mov al,2
+        mul dl
+        ret
+
+;=================================================
+stringRet:
+         pop di
+         pop si
+         pop es
+         pop ds
+         pop bx
+         pop cx
+         ret
+
+code ends
+end start
+
+</code></pre>
+<h3 id="实验-divdw"><a class="anchor" href="#实验-divdw">#</a> 实验 - divdw</h3>
+<p>当 32 位被除数与 16 位除数相除时，商的大小可能大于 16 位，而商是放在 ax 中的，所以可能会发生溢出</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647863774384-4aec3147-612f-4f10-8d05-fdb949ff396a.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647863774384-4aec3147-612f-4f10-8d05-fdb949ff396a.png" /></p>
+<pre><code>assume ds:code
+
+data segment
+dd abcd1234
+data end
+
+stack segment
+db 128 dup(0)
+stack ends
+
+code segment
+start:
+      mov ax,stack
+      mov ss,ax
+      mov sp,128
+
+      mov ax,data
+      mov ds,ax
+
+      mov dx,[0]
+      mov ax,[2]
+      mov cx,b
+      pop dx
+
+      call loog_div
+
+     mov ax,4100H
+     int 21H
+
+loog_div:
+   ;先将被除数低位备份，然后进行被除数高位与除数的除法，因为除数是16位，所以被除数高位得是
+   ;32位形式，那么就让ax中位高位数据，dx中为0
+         push ax
+         mov bp,sp  ;保存sp是为了方便后面把被除数低位拿出来
+
+         mov ax,dx
+         mov dx,0
+         div cx    ;此时dx中为高位除余数，ax中为商
+         push ax   ;ax中为高位除后商，备份起来以便给dx
+
+         mov ax,[bp]  ;把低位拿出来，此时的dx正好满足rem（H/n）*65536,因为在进行低位的除法时，dx算32位被除数
+                      ;的高位
+         div cx
+                      ;此时dx中为低位余数，应该给cx
+
+         mov cx,dx
+         pop dx
+
+         ret
+
+code ends
+end start
+</code></pre>
+<h3 id="实验-hextodec"><a class="anchor" href="#实验-hextodec">#</a> 实验 - hexTodec</h3>
+<p>将 data 段中的数据以十进制形式显示出来</p>
+<p>hexTodec 子程序是将数据转化为十进制形式的字符串</p>
+<pre><code>assume cs:code
+
+data segment
+  db 16 dup(0)
+  db 16 dup(0)
+data ends
+
+stack segment
+  db 128 dup(0)
+stack ends
+
+code segment
+
+  start:
+      mov ax,data
+      mov ds,ax
+      mov ax,stack
+      mov ss,ax
+      mov sp,128
+
+      mov ax,24565
+      call hexTodec
+
+      mov dh,8
+      mov dl,3
+      mov cl,2
+      call show_str ;这个子程序就是将字符串显示出来，在本程序中未给出
+
+      mov ax,4100H
+      int 21H
+
+;=========================================
+hexTodec:
+       mov si,0
+       mov di,16
+
+       push bx
+       push cx
+       push ax
+       push si
+       push dx
+       push di
+
+hexTodecStart:
+       ;每次做16位除法前记得把dx清零
+       mov dx,0
+       ;将数字按十进制显示，取位操作就是每次除以10后的余数就是对应位上的数字
+       ;比如24565 / 10 的余数是5
+       mov bx,10
+       div bx
+       ;0~9的数的对应ASCII就是加上30h
+       add dl,30H
+       ;先放在第二行中，最后再倒序放入第一行
+       mov [di],dl
+       mov cx,ax
+       jcxz hexTodecRet
+       inc di
+       jmp  hexTodecStart
+
+hexTodecRet:
+          mov cx,di
+          sub cx,15
+    s:    mov dl,[di]
+          mov [si],dl
+          inc si
+          dec di
+          loop s
+
+          pop di
+          pop dx
+          pop si
+          pop ax
+          pop cx
+          pop bx
+          ret
+
+ code ends
+ end start
+</code></pre>

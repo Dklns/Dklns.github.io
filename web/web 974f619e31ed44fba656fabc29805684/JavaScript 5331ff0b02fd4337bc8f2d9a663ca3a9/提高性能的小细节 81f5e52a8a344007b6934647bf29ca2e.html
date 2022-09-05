@@ -1,0 +1,7 @@
+<h1 id="提高性能的小细节"><a class="anchor" href="#提高性能的小细节">#</a> 提高性能的小细节</h1>
+<p>1. <code>&lt;script src=&quot;script.js&quot; async&gt;&lt;/script&gt;</code>  像这样在标签内添加 async，脚本和 HTML 将一并加载</p>
+<p>2. <code>defer</code>   也行</p>
+<ul>
+<li>如果脚本无需等待页面解析，且无依赖独立运行，那么应使用  <code>async</code> 。</li>
+<li>如果脚本需要等待页面解析，且依赖于其它脚本，调用这些脚本时应使用  <code>defer</code> ，将关联的脚本按所需顺序置于 HTML 中。</li>
+</ul>

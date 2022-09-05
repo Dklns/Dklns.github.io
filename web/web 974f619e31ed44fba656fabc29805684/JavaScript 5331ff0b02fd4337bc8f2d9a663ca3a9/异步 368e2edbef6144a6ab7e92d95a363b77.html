@@ -1,0 +1,8 @@
+<h1 id="异步"><a class="anchor" href="#异步">#</a> 异步</h1>
+<h3 id="await什么时候用"><a class="anchor" href="#await什么时候用">#</a> await 什么时候用</h3>
+<p>当下一个操作需要上一个操作的结果时，用  <code>await</code>  标记</p>
+<p>下个操作需要上一个返回 promise 对象函数的处理结果，但因为该函数是异步函数（只有异步函数才能返回 promise 对象），一般来说下个操作是不会等待的，所以用  <code>await</code>  标记上一个函数，让接下来的操作等待上一个操作结束</p>
+<p><strong>那为什么要在使用  <code>await</code>  的函数名前标记  <code>async</code>  呢</strong></p>
+<p>如果不规定 <code>async</code> ，本来只是想 b 操作等待 a 操作的结果，结果成了 b 操作之后的操作都等待 a 操作，但是把 b 操作和 a 操作放进一个函数即代码块中，做一个标记说里边儿的 <code>await</code>  只对该代码块域生效</p>
+<h1 id="promise"><a class="anchor" href="#promise">#</a> Promise</h1>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises">使用 Promise - JavaScript | MDN</a></p>

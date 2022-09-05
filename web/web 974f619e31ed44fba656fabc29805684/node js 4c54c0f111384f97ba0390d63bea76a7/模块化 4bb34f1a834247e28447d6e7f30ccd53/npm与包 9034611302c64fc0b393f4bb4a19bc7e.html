@@ -1,0 +1,46 @@
+<h1 id="npm与包"><a class="anchor" href="#npm与包">#</a> npm 与包</h1>
+<h2 id="包的基本知识"><a class="anchor" href="#包的基本知识">#</a> 包的基本知识</h2>
+<h3 id="基本知识"><a class="anchor" href="#基本知识">#</a> 基本知识</h3>
+<ul>
+<li>
+<p>调用外部包的正确姿势</p>
+<p>在 npm 上搜索想要使用的包</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled.png" alt="Untitled" /></p>
+<p>得到官方文档</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%201.png" alt="Untitled" /></p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%202.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>包的版本号</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%203.png" alt="Untitled" /></p>
+</li>
+</ul>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%204.png" alt="Untitled" /></p>
+<p>初始化项目</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%205.png" alt="Untitled" /></p>
+<p>安装依赖的包</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%206.png" alt="Untitled" /></p>
+<p>卸载包</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%207.png" alt="Untitled" /></p>
+<p>开发时依赖</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%208.png" alt="Untitled" /></p>
+<h3 id="解决下包速度慢的问题"><a class="anchor" href="#解决下包速度慢的问题">#</a> 解决下包速度慢的问题</h3>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%209.png" alt="Untitled" /></p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2010.png" alt="Untitled" /></p>
+<h3 id="全局包"><a class="anchor" href="#全局包">#</a> 全局包</h3>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2011.png" alt="Untitled" /></p>
+<h3 id="规范的包结构"><a class="anchor" href="#规范的包结构">#</a> 规范的包结构</h3>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2012.png" alt="Untitled" /></p>
+<h2 id="开发属于自己的包"><a class="anchor" href="#开发属于自己的包">#</a> 开发属于自己的包</h2>
+<p>初识化包的基本结构</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2013.png" alt="Untitled" /></p>
+<p>package.json 中 name 得注意是唯一的，所以可以提前在 npm 上搜索是否已存在同名的包</p>
+<p>当把自定义包中的方法又分模块时，在主文件中导出时，在对象前加上 … 表示将对象中所有方法展开</p>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2014.png" alt="Untitled" /></p>
+<h3 id="登录"><a class="anchor" href="#登录">#</a> 登录</h3>
+<p>须在终端中登录 npm 账号  命令  <code>npm login</code></p>
+<p>注意：在运行 npm login 命令之前，必须先把下包的服务器地址切换为 npm 的官方服务器。否则会导致发布包失败！</p>
+<h3 id="发布"><a class="anchor" href="#发布">#</a> 发布</h3>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2015.png" alt="Untitled" /></p>
+<h3 id="删除"><a class="anchor" href="#删除">#</a> 删除</h3>
+<p><img src="npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e/Untitled%2016.png" alt="Untitled" /></p>

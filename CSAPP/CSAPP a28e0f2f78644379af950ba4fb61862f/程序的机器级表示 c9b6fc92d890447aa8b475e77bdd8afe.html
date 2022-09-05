@@ -1,0 +1,388 @@
+<h1 id="程序的机器级表示"><a class="anchor" href="#程序的机器级表示">#</a> 程序的机器级表示</h1>
+<p>这是根据 8086CPU，intel 风格的汇编语言</p>
+<p><a href="https://www.notion.so/f4038f5812c2418f84ce7c07b4065f3e"> 汇编语言</a></p>
+<p>本页面笔记，处理器默认为 x86-64 位处理器</p>
+<h2 id="一些知识"><a class="anchor" href="#一些知识">#</a> 一些知识</h2>
+<p>反汇编器是将机器代码转化为汇编代码</p>
+<h3 id="按位区分数据类型"><a class="anchor" href="#按位区分数据类型">#</a> 按位区分数据类型</h3>
+<table>
+<thead>
+<tr>
+<th>8 位</th>
+<th>16 位</th>
+<th>32 位</th>
+<th>64 位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字节</td>
+<td>字</td>
+<td>双字</td>
+<td>四字</td>
+</tr>
+</tbody>
+</table>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled.png" alt="Untitled" /></p>
+<h2 id="寄存器"><a class="anchor" href="#寄存器">#</a> 寄存器</h2>
+<h3 id="通用寄存器"><a class="anchor" href="#通用寄存器">#</a> 通用寄存器</h3>
+<table>
+<thead>
+<tr>
+<th>寄存器名 (64 位表示）</th>
+<th>32 位表示</th>
+<th>16 位表示</th>
+<th>8 位表示</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>%rax</td>
+<td>%eax</td>
+<td>%ax</td>
+<td>%al</td>
+<td>返回值</td>
+</tr>
+<tr>
+<td>%rbx</td>
+<td>%ebx</td>
+<td>%bx</td>
+<td>%bl</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>%rcx</td>
+<td>%ecx</td>
+<td>%cx</td>
+<td>%cl</td>
+<td>第 4 个参数</td>
+</tr>
+<tr>
+<td>%rdx</td>
+<td>%edx</td>
+<td>%dx</td>
+<td>%dl</td>
+<td>第 3 个参数</td>
+</tr>
+<tr>
+<td>%rsi</td>
+<td>%esi</td>
+<td>%si</td>
+<td>%sil</td>
+<td>第 2 个参数</td>
+</tr>
+<tr>
+<td>%rdi</td>
+<td>%edi</td>
+<td>%di</td>
+<td>%dil</td>
+<td>第 1 个参数</td>
+</tr>
+<tr>
+<td>%rbp</td>
+<td>%ebp</td>
+<td>%bp</td>
+<td>%bpl</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>%rsp</td>
+<td>%esp</td>
+<td>%sp</td>
+<td>%spl</td>
+<td>栈指针</td>
+</tr>
+<tr>
+<td>%r8</td>
+<td>%r8d</td>
+<td>%r8w</td>
+<td>%r8b</td>
+<td>第 5 个参数</td>
+</tr>
+<tr>
+<td>%r9</td>
+<td>%r9d</td>
+<td>%r9w</td>
+<td>%r9b</td>
+<td>第 6 个参数</td>
+</tr>
+<tr>
+<td>%r10</td>
+<td>%r10d</td>
+<td>%r10w</td>
+<td>%r10b</td>
+<td>调用者保存</td>
+</tr>
+<tr>
+<td>%r11</td>
+<td>%r11d</td>
+<td>%r11w</td>
+<td>%r11b</td>
+<td>调用者保存</td>
+</tr>
+<tr>
+<td>%r12</td>
+<td>%r12d</td>
+<td>%r12w</td>
+<td>%r12b</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>%13</td>
+<td>%r13d</td>
+<td>%r13w</td>
+<td>%r13b</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>%14</td>
+<td>%r14d</td>
+<td>%r14w</td>
+<td>%r14b</td>
+<td>被调用者保存</td>
+</tr>
+<tr>
+<td>%r15</td>
+<td>%r15d</td>
+<td>%r15w</td>
+<td>%1r5b</td>
+<td>被调用者保存</td>
+</tr>
+</tbody>
+</table>
+<h3 id="调用者寄存器和被调用者寄存器"><a class="anchor" href="#调用者寄存器和被调用者寄存器">#</a> 调用者寄存器和被调用者寄存器</h3>
+<p>左边的 % rbx 为调用者寄存器，右边的 % rbx 为被调用者寄存器</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%201.png" alt="Untitled" /></p>
+<p>因为调用者和被调用者中出现相同寄存器，会发生寄存器冲突，所以要么调用者在调用前就将寄存器保存调用结束后恢复（被调用者保存策略），要么进入调用后将冲突寄存器保存，调用结束前恢复（调用者保存策略）</p>
+<p>不同的寄存器进行不同的保存策略</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%202.png" alt="Untitled" /></p>
+<h3 id="条件码寄存器"><a class="anchor" href="#条件码寄存器">#</a> 条件码寄存器</h3>
+<p><a href="https://www.notion.so/459d9e65eac04f0fa7a8647fd71cbcd8">标志寄存器</a></p>
+<p>这些指令会改变条件码，XOR 指令会将 CF 和 OF 置零，INC 和 DEC 指令不会改变 CF</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%203.png" alt="Untitled" /></p>
+<h2 id="指令"><a class="anchor" href="#指令">#</a> 指令</h2>
+<p>大致结构：操作码 (Operation code)  操作数 (Oprands)</p>
+<h3 id="操作数类型"><a class="anchor" href="#操作数类型">#</a> 操作数类型</h3>
+<p>立即数：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mi>m</mi><mi>m</mi><mtext>也就是说</mtext></mrow><annotation encoding="application/x-tex">imm   也就是说</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathnormal">i</span><span class="mord mathnormal">m</span><span class="mord mathnormal">m</span><span class="mord cjk_fallback">也</span><span class="mord cjk_fallback">就</span><span class="mord cjk_fallback">是</span><span class="mord cjk_fallback">说</span></span></span></span>后接一个数字表示一个数字</p>
+<p>寄存器：register 直接用一个寄存器就是用寄存器中的值</p>
+<p>内存引用</p>
+<p>imm：立即数   <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>b</mi></msub></mrow><annotation encoding="application/x-tex">r_b</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">b</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: 基址寄存器  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>r</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">r_i</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.02778em;">r</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>：变址寄存器  s: 比例因子</p>
+<p>比例因子只能乘以变址寄存器，且值只能是 0，2，4，8</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%204.png" alt="Untitled" /></p>
+<p>需要注意的是直接用一个立即数表示查找以此为地址的内存单元，（register）表示以寄存器中的值为地址寻址</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%205.png" alt="Untitled" /></p>
+<h3 id="数据传送指令"><a class="anchor" href="#数据传送指令">#</a> 数据传送指令</h3>
+<p>结构：</p>
+<p>注意：目的操作数不能是立即数，源操作数和目的操作数不能都是内存单元</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%206.png" alt="Untitled" /></p>
+<p>基本传送指令</p>
+<p>不同后缀对应不同的数据类型，后缀与寄存器大小必须相匹配</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%207.png" alt="Untitled" /></p>
+<p>特殊情况</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%208.png" alt="Untitled" /></p>
+<blockquote>
+<p>当 movq 的源操作数是立即数时，该操作数只能是 32 位的补码表示，然后对该数值进行符号位扩展后传送到目的位置</p>
+</blockquote>
+<p>当立即数是 64 位时如何传送？</p>
+<blockquote>
+<p>movabsq 绝对四字传送指令，它的源操作数可以是任意 64 位立即数，但目的操作数只能是寄存器</p>
+</blockquote>
+<p>当 movl 的目的操作数是寄存器时，会把该寄存器的高位部分置为 0</p>
+<p>数据扩展</p>
+<p>当低位操作数需要向高位操作数传送就需要数据扩展</p>
+<p>零扩展</p>
+<p>mov 后面第一个 z 表示 zero，第二个字符表示源操作数的位类型，第三个字符表示目的操作数的位类型</p>
+<p>零扩展没有 l 到 q 的扩展因为 movl 可以实现这个需求</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%209.png" alt="Untitled" /></p>
+<p>符号位扩展</p>
+<p>就是将符号位填补增加的位</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2010.png" alt="Untitled" /></p>
+<p>cltq 指令没有操作数，它的原操作数就是 % eax，目的操作数就是 % rax</p>
+<h3 id="栈"><a class="anchor" href="#栈">#</a> 栈</h3>
+<p>压栈出栈思路同该笔记</p>
+<h3 id="cpu提供的栈机制"><a class="anchor" href="#cpu提供的栈机制">#</a> CPU 提供的栈机制</h3>
+<h3 id="算术和逻辑运算指令"><a class="anchor" href="#算术和逻辑运算指令">#</a> 算术和逻辑运算指令</h3>
+<ul>
+<li>
+<p>leaq 指令</p>
+<p>实现有效地址的传送</p>
+<p>如： leaq 7 (% rdx,  % rdx,  4),% rax   假设 % rdx 中的值为 x，则传送 5*x+7 给 % rax，所以这个指令是传送内存引用形式中的有效地址</p>
+<p>一般来说，leaq 指令都不是拿来传送有效地址的，而是进行一定的计算，例如：</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2011.png" alt="Untitled" /></p>
+<p>注意比例因子只能是 0，2，4，8</p>
+</li>
+<li>
+<p>一元操作</p>
+<p>一元操作的操作数既是源操作数又是目的操作数</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2012.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>二元操作</p>
+<p>第一个操作数是源操作数，可以是寄存器，立即数，内存地址，第二个操作数既是源操作数又是目的操作数，可以是寄存器或内存地址，不能是立即数</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2013.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>移位操作</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2014.png" alt="Untitled" /></p>
+<p>移位量可以是立即数也可以是存放在寄存器中的值，但这个寄存器只能是 cl</p>
+<p>移位 cl 是 8 位寄存器，理论上它可以控制的最大移位量是 255，但是其实数据的最大移位量是 64</p>
+<p>所以有这样的限制</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2015.png" alt="Untitled" /></p>
+<p>对于 m 位的数，cl 用 w 位来控制，比如一个字节的数，cl 最多 3 位有效</p>
+</li>
+<li>
+<p>特殊的算术指令</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2016.png" alt="Untitled" /></p>
+<p>思路同</p>
+<h3 id="mul"><a class="anchor" href="#mul">#</a> mul</h3>
+<h3 id="div"><a class="anchor" href="#div">#</a> div</h3>
+</li>
+</ul>
+<h3 id="控制流相关指令"><a class="anchor" href="#控制流相关指令">#</a> 控制流相关指令</h3>
+<ul>
+<li>
+<p>set 指令</p>
+<p>每条指令根据条件码的某种组合，将一个字节设置为 0 或者 1</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648460605720.jpg" alt="qq_pic_merged_1648460605720.jpg" /></p>
+</li>
+<li>
+<p>条件跳转指令</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648469293874.jpg" alt="qq_pic_merged_1648469293874.jpg" /></p>
+</li>
+</ul>
+<p>当条件满足时走一条路径，否则走另一条路径，这种机制比较简单和通用，但是在现代处理器上，它的执行效率可能会比较低</p>
+<p>替代策略，用数据的条件转移来代替控制的条件转移</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2017.png" alt="Untitled" /></p>
+<p>为什么右边的策略会比左边的策略更快呢</p>
+<p>这是右边 C 代码的汇编，它是将两种可能都进行计算结果并保存在寄存器中，最后关键在于 cmovge 指令是根据条件码执行的，如果 x 大于等于 y，就将 % rdx 中的值传送到 % rax，实现根据条件传出不同结果</p>
+<p>为什么这样效率高，这涉及处理器是通过流水线来获得高性能，当遇到条件跳转时处理器会根据分支预测器来猜测每条跳转指令是否执行，然后提前铺设若干条指令，当发生错位预测时，会浪费大量时间，导致程序性能严重下降</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2018.png" alt="Untitled" /></p>
+<ul>
+<li>
+<p>条件传送指令</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648469888271.jpg" alt="qq_pic_merged_1648469888271.jpg" /></p>
+</li>
+</ul>
+<p>switch 语句使用跳转表来实现多个分支，即使有一百多个分支，switch 也只需要进行一次跳转，相比较 if-else 进行多次跳转，效率更高</p>
+<h2 id="过程"><a class="anchor" href="#过程">#</a> 过程</h2>
+<p>过程时软件中一种很重要的抽象。它提供了一种封装代码的方式，用一组指定的参数和一个可选的返回值实现了某种功能。</p>
+<p>而一个过程包括一个或多个以下机制：</p>
+<ul>
+<li>传递控制</li>
+<li>传递数据</li>
+<li>分配和释放空间</li>
+</ul>
+<p>C 语言以及大多数其他的语言在过程调用机制中的一个关键特性，使用栈的内存管理原则。</p>
+<ul>
+<li>
+<p>栈帧</p>
+<p>当函数执行所需要的空间超出寄存器能够存放的大小时，就会借助栈上的存储空间，我们把这部分储存空间称为函数的栈帧</p>
+</li>
+</ul>
+<p>关于函数 P 调用函数 Q 的帧，早先的帧，调用 P 的帧，函数 Q 的帧</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2019.png" alt="Untitled" /></p>
+<p>注意在 P 的帧中，调用 Q 时会压栈一个地址，这个地址是 P 调用 Q 指令的下一条指令的地址，其目的是当从 Q 返回 P 时，能继续从 P 调用 Q 指令的下一条指令开始执行，而这个地址不是由 push 压栈而是 call 指令（该指令的思路同下页面），而返回时将这个地址出栈，并修改 CS：IP 的值是 ret 指令（同下）</p>
+<p><a href="https://www.notion.so/call-ret-6cc371341ad641bc8328973f9f870879"><strong>call 和 ret 指令</strong></a></p>
+<p>参数传递</p>
+<p>假设函数 P 有 n 个整型参数，当 n 的值大于 6 时，参数 7 至参数 n 要用到栈来传递</p>
+<ul>
+<li>
+<p>而参数 1 到 6 的传递可以用到对应的寄存器</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2020.png" alt="Untitled" /></p>
+<p>以下使用顺序和根据大小时用的名</p>
+<p><a href="https://www.notion.so">https://www.notion.so</a></p>
+</li>
+</ul>
+<p>通过栈来传递参数时，所有数据得大小需要向 8 得倍数对齐，也就是说即使这个数据只占 1 个字节，它在栈中也是占用 8 个字节</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2021.png" alt="Untitled" /></p>
+<p>传递的参数需要 8 个字节对齐，而局部变量是不需要对齐的</p>
+<p>当函数运行需要局部储存空间时，栈提供了内存分配与回收的机制</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2022.png" alt="Untitled" /></p>
+<p>看一个关于递归函数的例子</p>
+<p>用递归实现阶乘，假设 n 为 3</p>
+<p><a href="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/%E3%80%90%E5%90%88%E9%9B%86%E3%80%91CSAPP-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%B3%BB%E7%BB%9F_%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9_bilibili_-_Google_Chrome_2022-03-29_14-32-07.mp4">【合集】CSAPP - 深入理解计算机系统_哔哩哔哩_bilibili - Google Chrome 2022-03-29 14-32-07.mp4</a></p>
+<h2 id="数组的分配和访问"><a class="anchor" href="#数组的分配和访问">#</a> 数组的分配和访问</h2>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2023.png" alt="Untitled" /></p>
+<p>在 C 语言中允许对指针进行运算</p>
+<p>例如，int *p  则 p + i ⇒  <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>x</mi><mi>p</mi></msub></mrow><annotation encoding="application/x-tex">x_p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span></span></span></span> + 4 * i  也就是说指针加减一个数等于地址加减数据类型的大小乘以这个数</p>
+<p>数组分为定长数组和变长数组</p>
+<p>在 C89 的标准中程序员使用变长数组时需要使用 malloc 这类函数为数组动态的分配存储空间，ISO C99 的标准中，引入了变长数组的概念</p>
+<h2 id="结构体与联合体"><a class="anchor" href="#结构体与联合体">#</a> 结构体与联合体</h2>
+<h3 id="结构体"><a class="anchor" href="#结构体">#</a> 结构体</h3>
+<p>结构体中无论是单个变量还是数组元素，都是通过起始地址加偏移量的方式来访问</p>
+<p>数据对齐</p>
+<p>简而言之就是，为了提高内存系统的性能，对于大小为 K 的数据类型，它的地址必须是 K 的倍数</p>
+<p>如下，编译器会在变量 c 和变量 j 之间插入一个 3 字节的间隙</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2024.png" alt="Untitled" /></p>
+<p>结构体的末端也可能需要填充间隙</p>
+<p>如将上述结构体中的数据类型顺序进行调整，当只有一个结构体时这没有问题，但是当我们声明一个结构体数组时，因为内存是连续的，如果不在后面填充间隙，第二个结构体中的第一个整型的地址将不会是 4 的倍数</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2025.png" alt="Untitled" /></p>
+<h3 id="联合体"><a class="anchor" href="#联合体">#</a> 联合体</h3>
+<p>联合体中的所有字段共享同一储存区域</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2026.png" alt="Untitled" /></p>
+<p>因此联合体的大小取决于它的最大字段的大小</p>
+<p>联合体的一种应用情况是，我们事先知道两个不同字段的使用是互斥的</p>
+<p>例如，我们定义一个二叉树的数据结构，这个二叉树分为内部节点和叶子节点，其中每个内部节点不含数据，都有指向两个孩子节点的指针，每个叶子节点都有两个 double 类型的数据值</p>
+<p>这是用结构体来定义该二叉树的节点，也就是说每个节点占 32 个字节</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2027.png" alt="Untitled" /></p>
+<p>但是如果是内部节点，那么没有数据，即 data 元素就是浪费空间，叶子节点同理</p>
+<p>我们事先知道该二叉树的任意一个节点不是内部节点就是叶子节点，因此我们可以用联合体来定义</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2028.png" alt="Untitled" /></p>
+<p>这样每个节点就只需要 16 个字节，但是这样有一个问题，就是不能得知节点是内部节点还是叶子节点，通常的解决方法是引入一个枚举类型，然后创建一个结构体，里面包含一个 type 标签和一个联合体，type 占 4 个字节，联合体占 16 个字节，type 和联合体之间有 4 个字节的间隙，因此这个节点总共占 24 个字节</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2029.png" alt="Untitled" /></p>
+<p>在这个例子中，虽然使用联合体可以节省储存空间，但是相对于给代码编写造成的麻烦，这样的节省意义不大，因此对于有较多字段的情况，使用联合体带来的空间节省才会更吸引人</p>
+<p>除此之外联合体还可以用来访问不同数据类型的位模式</p>
+<p>当我们使用简单的强制类型转换，如下，除了 d 等于 0 的情况，二者的二进制位表示差别很大</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2030.png" alt="Untitled" /></p>
+<p>这时我们可以将两种类型变量声明为一个联合体，这样就是一种类型来储存，以另一种类型来访问，变量 u 和 d 就有了相同的位表示</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2031.png" alt="Untitled" /></p>
+<h2 id="缓冲区溢出"><a class="anchor" href="#缓冲区溢出">#</a> 缓冲区溢出</h2>
+<p>在 C 语言中，对数组的引用不会进行任何的边界检查，如果对越界的数组进行写操作，就会破坏储存在栈中的状态信息，当程序使用了被修改的返回地址时，就会导致严重的错误</p>
+<p>可以看出 gets（）是没有检测字符串长度是否越界的功能的，也就是说长一点的字符串可能会导致栈上的其他信息被覆盖</p>
+<p>这是 echo 的函数代码</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2032.png" alt="Untitled" /></p>
+<p>这是函数 gets（）的内部代码</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648616110223.jpg" alt="qq_pic_merged_1648616110223.jpg" /></p>
+<p>这是 echo 的汇编代码</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2033.png" alt="Untitled" /></p>
+<p>可以看出实际上栈上分配了 24 个字节的储存空间，当输入字符串长度超过 23 时，就会覆盖掉返回地址，那么程序可能就会返回到一个意想不到的地址</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2034.png" alt="Untitled" /></p>
+<p>对抗缓冲区溢出攻击</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/Untitled%2035.png" alt="Untitled" /></p>
+<h2 id="浮点代码"><a class="anchor" href="#浮点代码">#</a> 浮点代码</h2>
+<p>简而言之就是，对于浮点数的操作，处理器会使用专属的一套寄存器和指令，也就是说浮点数和其他数据使用的寄存器和指令基本都是不一样的</p>
+<ul>
+<li>
+<p>寄存器</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637761642.jpg" alt="qq_pic_merged_1648637761642.jpg" /></p>
+</li>
+<li>
+<p>传送指令</p>
+<p>X 是寄存器，M 表示对应位数的存储，可以是内存空间也可以是寄存器</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637779247.jpg" alt="qq_pic_merged_1648637779247.jpg" /></p>
+</li>
+<li>
+<p>整数和浮点数的转化</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637815382.jpg" alt="qq_pic_merged_1648637815382.jpg" /></p>
+</li>
+<li>
+<p>浮点数相互转化</p>
+<p>这是单精度转双精度，具体就不分析了，第一个指令的 s 换成 d，第二个指令的 s 和 d 互换就是双精度转单精度了</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648638361280.jpg" alt="qq_pic_merged_1648638361280.jpg" /></p>
+</li>
+<li>
+<p>运算指令</p>
+<p>源操作数可以是<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>S</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">S_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> 或者<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><msub><mi>S</mi><mn>1</mn></msub><mo separator="true">,</mo><msub><mi>S</mi><mn>2</mn></msub><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">(S_1,S_2)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>, 而目的操作数只能是寄存器</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637836243.jpg" alt="qq_pic_merged_1648637836243.jpg" /></p>
+</li>
+<li>
+<p>位级操作</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637855219.jpg" alt="qq_pic_merged_1648637855219.jpg" /></p>
+</li>
+<li>
+<p>比较操作</p>
+<p>但是相对应的条件转移需要的标志是 CF，ZF，PF，所以使用的是 ja，jl，je，以及 jp，jp 的作用是判断是否是一个 NaN</p>
+<p><img src="%E7%A8%8B%E5%BA%8F%E7%9A%84%E6%9C%BA%E5%99%A8%E7%BA%A7%E8%A1%A8%E7%A4%BA%20c9b6fc92d890447aa8b475e77bdd8afe/qq_pic_merged_1648637896180.jpg" alt="qq_pic_merged_1648637896180.jpg" /></p>
+</li>
+</ul>

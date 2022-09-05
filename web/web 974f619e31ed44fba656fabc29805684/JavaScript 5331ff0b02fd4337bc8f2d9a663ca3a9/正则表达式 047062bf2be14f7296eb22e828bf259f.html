@@ -1,0 +1,93 @@
+<h1 id="正则表达式"><a class="anchor" href="#正则表达式">#</a> 正则表达式</h1>
+<p>正则表达式是用于匹配字符串中字符组合的模式。在 JavaScript 中，正则表达式也是对象。这些模式被用于  <code>[RegExp](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)</code>  的  <code>[exec](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec)</code>  和  <code>[test](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test)</code>  方法，以及  <code>[String](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String)</code>  的  <code>[match](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match)</code> 、 <code>[matchAll](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)</code> 、 <code>[replace](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace)</code> 、 <code>[search](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search)</code> <br />
+ 和  <code>[split](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split)</code>  方法。本章介绍 JavaScript 正则表达式。</p>
+<h2 id="创建一个正则表达式"><a class="anchor" href="#创建一个正则表达式">#</a> 创建一个正则表达式</h2>
+<ol>
+<li>字面量     当正则表达式保持不变时，使用此方法可获得更好的性能</li>
+</ol>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">let</span> reg <span class="token operator">=</span> <span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">ab+c</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">;</span></pre></td></tr></table></figure><ol>
+<li>调用 <code>RegExp</code>  构造函数   优点与上相反</li>
+</ol>
+<figure class="highlight jsx"><figcaption data-lang="React JSX"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token keyword">let</span> reg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span><span class="token string">'ab+c'</span><span class="token punctuation">)</span></pre></td></tr></table></figure><h2 id="编写一个正则表达式的模式"><a class="anchor" href="#编写一个正则表达式的模式">#</a> 编写一个正则表达式的模式</h2>
+<p>MDN 上的是详细且官方的</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%A8%A1%E5%BC%8F">正则表达式 - JavaScript | MDN</a></p>
+<p>以下是我个人方便理解的注解（类似于）</p>
+<h3 id="b"><a class="anchor" href="#b">#</a> \B</h3>
+<p>/\B../ 匹配 “noonday” 中的‘oo’</p>
+<p>n 作为字符串的第一个字符为非 “字” 字符，.. 匹配换行外的任何字符</p>
+<p>/y\B../ 匹配 “possibly yesterday” 中的’yes'  y 对应第二个 y, 为什么正则中的 y 会不匹配第一个 y 呢</p>
+<p>因为第一个 y 后的边界为词边界，即 /b，而第二个 y 后为两个单词字符之间的非单词边界</p>
+<h2 id="使用正则表达式"><a class="anchor" href="#使用正则表达式">#</a> 使用正则表达式</h2>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>exec</td>
+<td>一个在字符串中执行查找匹配的 RegExp 方法，它返回一个数组（未匹配到则返回 null）。</td>
+</tr>
+<tr>
+<td>test</td>
+<td>一个在字符串中测试是否匹配的 RegExp 方法，它返回 true 或 false。</td>
+</tr>
+<tr>
+<td>match</td>
+<td>一个在字符串中执行查找匹配的 String 方法，它返回一个数组，在未匹配到时会返回 null。</td>
+</tr>
+<tr>
+<td>matchAll</td>
+<td>一个在字符串中执行查找所有匹配的 String 方法，它返回一个迭代器（iterator）。</td>
+</tr>
+<tr>
+<td>search</td>
+<td>一个在字符串中测试匹配的 String 方法，它返回匹配到的位置索引，或者在失败时返回 - 1。</td>
+</tr>
+<tr>
+<td>replace</td>
+<td>一个在字符串中执行查找匹配的 String 方法，并且使用替换字符串替换掉匹配到的子字符串。</td>
+</tr>
+<tr>
+<td>split</td>
+<td>一个使用正则表达式或者一个固定字符串分隔一个字符串，并将分隔后的子字符串存储到数组中的 String 方法。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="通过标志进行高级搜索"><a class="anchor" href="#通过标志进行高级搜索">#</a> 通过标志进行高级搜索</h3>
+<table>
+<thead>
+<tr>
+<th>标志</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>g</td>
+<td>全局搜索。</td>
+</tr>
+<tr>
+<td>i</td>
+<td>不区分大小写搜索。</td>
+</tr>
+<tr>
+<td>m</td>
+<td>多行搜索。</td>
+</tr>
+<tr>
+<td>s</td>
+<td>允许 . 匹配换行符。</td>
+</tr>
+<tr>
+<td>u</td>
+<td>使用 unicode 码的模式进行匹配。</td>
+</tr>
+<tr>
+<td>y</td>
+<td>执行 “粘性 (sticky)” 搜索，匹配从目标字符串的当前位置开始。</td>
+</tr>
+</tbody>
+</table>

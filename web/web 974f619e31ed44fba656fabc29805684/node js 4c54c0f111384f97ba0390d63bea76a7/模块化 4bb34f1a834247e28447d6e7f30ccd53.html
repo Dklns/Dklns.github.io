@@ -1,0 +1,21 @@
+<h1 id="模块化"><a class="anchor" href="#模块化">#</a> 模块化</h1>
+<p>通过 require 导入的模块有三个来源，自定义，内部，外部提供的包</p>
+<ul>
+<li>
+<p><code>module.exports</code>  对象</p>
+<p>在自定义模块中，可以使用 <code>module.exports</code>  对象，将模块内的成员共享出去，供外界使用。<br />
+外界用 <code>require()</code>  方法导入自定义模块时，得到的就是 <code>module.exports</code>  所指向的对象。</p>
+<p>由于 <code>module.exports</code>  单词写起来比较复杂，为了简化向外共享成员的代码，Node 提供了 <code>exports</code>  对象。默认情况下， <code>exports</code>  和 <code>module.exports</code>  指向同一个对象。最终共享的结果，还是以 <code>module.exports</code>  指向的对象为准。</p>
+</li>
+</ul>
+<p><a href="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/npm%E4%B8%8E%E5%8C%85%209034611302c64fc0b393f4bb4a19bc7e">npm 与包</a></p>
+<ul>
+<li>
+<p>模块的加载机制</p>
+<p><img src="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/Untitled.png" alt="Untitled" /></p>
+<p><img src="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/Untitled%201.png" alt="Untitled" /></p>
+<p><img src="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/Untitled%202.png" alt="Untitled" /></p>
+<p><img src="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/Untitled%203.png" alt="Untitled" /></p>
+<p><img src="%E6%A8%A1%E5%9D%97%E5%8C%96%204bb34f1a834247e28447d6e7f30ccd53/Untitled%204.png" alt="Untitled" /></p>
+</li>
+</ul>

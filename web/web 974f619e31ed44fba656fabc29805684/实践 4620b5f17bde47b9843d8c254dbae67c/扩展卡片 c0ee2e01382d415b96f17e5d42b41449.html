@@ -1,0 +1,22 @@
+<h1 id="扩展卡片"><a class="anchor" href="#扩展卡片">#</a> 扩展卡片</h1>
+<h3 id="背景图片不能完整显示"><a class="anchor" href="#背景图片不能完整显示">#</a> 背景图片不能完整显示</h3>
+<p>一开始背景图片就是这样</p>
+<p><img src="%E6%89%A9%E5%B1%95%E5%8D%A1%E7%89%87%20c0ee2e01382d415b96f17e5d42b41449/Untitled.png" alt="Untitled" /></p>
+<p>加上如下属性设置</p>
+<figure class="highlight css"><figcaption data-lang="CSS"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token property">background-size</span><span class="token punctuation">:</span> cover<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token property">background-position</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span></pre></td></tr></table></figure><p><img src="%E6%89%A9%E5%B1%95%E5%8D%A1%E7%89%87%20c0ee2e01382d415b96f17e5d42b41449/Untitled%201.png" alt="Untitled" /></p>
+<p>解释一下背景尺寸的关键字</p>
+<ul>
+<li><code>cover</code>  — 浏览器将使图像足够大，使它完全覆盖了盒子区，同时仍然保持其高宽比。在这种情况下，有些图像可能会跳出盒子外</li>
+<li><code>contain</code>  — 浏览器将使图像的大小适合盒子内。在这种情况下，如果图像的长宽比与盒子的长宽比不同，则可能在图像的任何一边或顶部和底部出现间隙。</li>
+</ul>
+<p>使用 cover 这个盒子就会比较完整的只以这一张图片作为背景，虽然会有一小部分没有被包含进盒子里</p>
+<p>使用 contain 这个盒子确实会把整张图片作为背景，但如果取消了平铺，那么盒子会出现许多空隙</p>
+<p><img src="%E6%89%A9%E5%B1%95%E5%8D%A1%E7%89%87%20c0ee2e01382d415b96f17e5d42b41449/Untitled%202.png" alt="Untitled" /></p>
+<p>背景定位就无脑居中了</p>
+<h3 id="子盒子在弹性父盒子中的居中排布"><a class="anchor" href="#子盒子在弹性父盒子中的居中排布">#</a> 子盒子在弹性父盒子中的居中排布</h3>
+<p>在这个例子中我将 body 也设置为 flex 盒子，contaier 盒子的宽度是 90vw</p>
+<p>如果默认排布，右边会有 10% 的空白，而左边没有</p>
+<p><img src="%E6%89%A9%E5%B1%95%E5%8D%A1%E7%89%87%20c0ee2e01382d415b96f17e5d42b41449/Untitled%203.png" alt="Untitled" /></p>
+<p>学到的新属性 justify-content , 设置为 center 就行了<br />
+ ** <code>justify-content</code> ** 属性定义了浏览器之间，如何分配顺着弹性容器主轴 (或者网格行轴) 的元素之间及其周围的空间。</p>
+<p><img src="%E6%89%A9%E5%B1%95%E5%8D%A1%E7%89%87%20c0ee2e01382d415b96f17e5d42b41449/Untitled%204.png" alt="Untitled" /></p>

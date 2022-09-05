@@ -1,0 +1,190 @@
+<h1 id="外中断"><a class="anchor" href="#外中断">#</a> 外中断</h1>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled.png" alt="Untitled" /></p>
+<h2 id="外中断信息"><a class="anchor" href="#外中断信息">#</a> 外中断信息</h2>
+<h3 id="可屏蔽中断"><a class="anchor" href="#可屏蔽中断">#</a> 可屏蔽中断</h3>
+<p>简而言之，标志寄存器中 IF = 1 时，如果有可屏蔽中断信息则 CPU 会在执行完当前指令后响应中断引发中断过程；如果 IF = 0 则不响应可屏蔽中断</p>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%201.png" alt="Untitled" /></p>
+<h3 id="不可屏蔽中断"><a class="anchor" href="#不可屏蔽中断">#</a> 不可屏蔽中断</h3>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%202.png" alt="Untitled" /></p>
+<h2 id="pc机键盘的处理过程"><a class="anchor" href="#pc机键盘的处理过程">#</a> PC 机键盘的处理过程</h2>
+<h3 id="键盘输入"><a class="anchor" href="#键盘输入">#</a> 键盘输入</h3>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%203.png" alt="Untitled" /></p>
+<p>扫描码表</p>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%204.png" alt="Untitled" /></p>
+<h3 id="执行int9中断例程"><a class="anchor" href="#执行int9中断例程">#</a> 执行 int9 中断例程</h3>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%205.png" alt="Untitled" /></p>
+<p><img src="%E5%A4%96%E4%B8%AD%E6%96%AD%20a9bde36e1e5f4e94ba455a636f6d1ed0/Untitled%206.png" alt="Untitled" /></p>
+<h2 id="延时子程序"><a class="anchor" href="#延时子程序">#</a> 延时子程序</h2>
+<p>如果想在一定时间内连续显示 a~z，该怎么怎么做呢</p>
+<pre><code>assume cs:code
+
+stack segment
+db 128 dup(0)
+stack ends
+
+code segment
+start:
+    mov ax,stack
+    mov ss,ax
+    mov sp,128
+    
+    mov ax,0b800h
+    mov es,ax
+    
+    mov ah,'a'
+s:  mov es:[8*160+4*2],ah
+    call delay
+    inc ah
+    cmp ah,'z'
+    jne s
+
+    mov ax,4c00h
+    int 21h
+    
+delay:             ;这个就是延时子程序,其根本就是让cpu减1一个很大的数字
+      push bx
+      push ax     
+      mov bx,5h    ;这我设置的是50000H 即327680
+      mov ax,0
+s1:   sub ax,1     ;连续减1
+      sbb bx,0     ;注意这里的指令是sbb
+      cmp ax,0
+      jne s1
+      cmp bx,0
+      jne s1
+      pop ax
+      pop bx
+      ret
+code ends
+end start
+</code></pre>
+<h3 id="编写int9中断例程"><a class="anchor" href="#编写int9中断例程">#</a> 编写 int9 中断例程</h3>
+<p>实现的功能是当按下 Esc 键时正在显示的字母颜色改变</p>
+<pre><code>assume cs:code
+
+stack segment
+db 128 dup(0)
+stack ends
+
+data segment
+dw 0,0
+data ends
+
+code segment
+start:
+     mov ax,stack
+     mov ss,ax
+     mov sp,128
+     
+     
+     mov ax,cs
+     mov ds,ax
+     mov si,offset int9
+     
+     mov ax,0
+     mov es,ax
+     mov di,204h
+     
+     mov cx,offset int9End - offset int9
+     cld
+     rep movsb
+     
+     push es:[9*4]
+     pop es:[200h]
+     push es:[9*4+2]     ;转移原来的int9的地址到0000:0200h处
+     pop es:[202h]
+     
+     cli
+     mov word ptr es:[9*4],204h           ;安装新的int9中断处理程序
+     mov word ptr es:[9*4+2],0
+     sti
+     
+     mov ax,0b800h
+     mov es,ax
+     mov ah,'a'
+s:   mov es:[160*8+4*2],ah
+     call delay
+     inc ah
+     cmp ah,'z'
+     jna s
+
+     mov ax,4c00h
+     int 21h
+     
+delay:
+     push ax
+     push bx
+     mov ax,0
+     mov bx,5
+s1:  sub ax,1
+     sbb bx,0
+     cmp ax,0
+     jne s1
+     cmp bx,0
+     jne s1
+     pop bx
+     pop ax
+     ret
+     
+     
+int9:
+    push ax
+    push ds
+    push es
+    
+    in al,60h
+    
+    pushf        ;在进入中断处理程序前TF就被置为0了，所以不需要再置0一次了
+    call dword ptr cs:[200h]  ;此时的cs中为0
+    
+    cmp al,1
+    jne int9Ret
+    mov ax,0b800h
+    mov es,ax
+    inc byte ptr es:[8*160+4*2+1]
+    
+int9Ret:
+    pop es
+    pop ds
+    pop ax
+    iret
+int9End:
+    nop     
+    
+code ends
+end start
+</code></pre>
+<h3 id="实验-满屏a"><a class="anchor" href="#实验-满屏a">#</a> 实验 - 满屏 A</h3>
+<pre><code>int9:
+    push ax
+    push ds
+    push es
+    push bx
+    push cx
+    
+    in al,60h
+    
+    pushf
+    call dword ptr cs:[200h]
+    
+    cmp al,9eh
+    jne int9Ret
+    mov ax,0b800h
+    mov es,ax
+    mov cx,2000
+    mov bx,0
+    mov al,'a'
+s2: mov es:[bx],al
+    add bx,2
+    loop s2
+    
+int9Ret:
+    pop cx
+    pop bx
+    pop es
+    pop ds
+    pop ax
+    iret
+int9End:
+    nop
+</code></pre>

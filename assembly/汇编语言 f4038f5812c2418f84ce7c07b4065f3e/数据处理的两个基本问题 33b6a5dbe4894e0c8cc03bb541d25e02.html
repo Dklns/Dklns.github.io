@@ -1,0 +1,33 @@
+<h1 id="数据处理的两个基本问题"><a class="anchor" href="#数据处理的两个基本问题">#</a> 数据处理的两个基本问题</h1>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647574218958-4d634be3-f35b-4129-8aeb-312f7cea1d55.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647574218958-4d634be3-f35b-4129-8aeb-312f7cea1d55.png" /></p>
+<p>reg     register</p>
+<p>sreg   segement regiter</p>
+<h3 id="bx-di-si-bp"><a class="anchor" href="#bx-di-si-bp">#</a> bx、di、si、bp</h3>
+<p>（1）除这四个寄存器外的寄存器是不能用 [reg] 的方式表示偏移地址的</p>
+<p>（2）这四个寄存器可以单独存在，也可以组队存在，但只能是这四个组合 bx + si 、bx + di 、 bp + si 、bp + di</p>
+<p>（3）bp 作为偏移地址时，默认段地址是 ss，这其实就是区分（2）的点，bx 的默认段地址是 ds，与 bp 不同</p>
+<h3 id="寻址方式"><a class="anchor" href="#寻址方式">#</a> 寻址方式</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581292274-76fb04bd-7b72-4214-aec2-b07606f1af6c.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581292274-76fb04bd-7b72-4214-aec2-b07606f1af6c.png" /></p>
+<h3 id="指明要处理的数据有多长"><a class="anchor" href="#指明要处理的数据有多长">#</a> 指明要处理的数据有多长</h3>
+<p>（1）通过寄存器名指明要处理的数据的尺寸</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581433042-859ae9e0-8fc5-43ae-bc36-9ca01facca59.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581433042-859ae9e0-8fc5-43ae-bc36-9ca01facca59.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581454746-1e766108-51fe-42b3-979b-72e1c374c3a1.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581454746-1e766108-51fe-42b3-979b-72e1c374c3a1.png" /></p>
+<p>如果需要送入内存单元的数据是双字型，那就用 ax 先送入低字，然后又用 ax 送入高字</p>
+<p>在进行数据读写的时候，如果没有用到寄存器那么就要用 X ptr 指明长度 ， 如果有用到寄存器，那么字节型就用 al，ah 等，字型就用 ax 等，双字型就用两次 ax</p>
+<h3 id="寻址方式的综合运用"><a class="anchor" href="#寻址方式的综合运用">#</a> 寻址方式的综合运用</h3>
+<p>现有这样一组数据</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581555917-3a2995d7-472b-4939-8346-d111bfc3bc1f.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581555917-3a2995d7-472b-4939-8346-d111bfc3bc1f.png" /></p>
+<p>对其进行修改</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581593351-53ef52df-dbe0-4e4c-9b87-993a1e8affb9.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581593351-53ef52df-dbe0-4e4c-9b87-993a1e8affb9.png" /></p>
+<p>如果是 C 语言的表达</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581638888-a4ab8842-b78e-4264-b2a8-bd2aa20d4081.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581638888-a4ab8842-b78e-4264-b2a8-bd2aa20d4081.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581646876-8a3d4c26-a0c4-4489-be25-e95418f27229.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581646876-8a3d4c26-a0c4-4489-be25-e95418f27229.png" /></p>
+<p>按照 C 语言风格，用汇编语言写</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581692690-a4445b5d-31ad-432c-ac2f-b79a8471009a.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647581692690-a4445b5d-31ad-432c-ac2f-b79a8471009a.png" /></p>
+<p>其实就相当于 bx 存储结构体变量的地址，idata 表示每个数据项的地址，这个地址是相对与结构体变量的地址而言的，因为这个结构体中的数据本身就是连续储存的，而 si 就是每项数据项数组中的每一项</p>
+<h3 id="伪指令dd"><a class="anchor" href="#伪指令dd">#</a> 伪指令 dd</h3>
+<p>即 double word 定义一个双字型数据，占四个字节</p>
+<h3 id="dup"><a class="anchor" href="#dup">#</a> dup</h3>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647582389672-c577ff2b-ce2e-495a-8aa4-93a7d3583b13.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647582389672-c577ff2b-ce2e-495a-8aa4-93a7d3583b13.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647582410780-64125c9f-8605-46b4-8ec8-e41870400a4a.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647582410780-64125c9f-8605-46b4-8ec8-e41870400a4a.png" /></p>
+<p>dup 的主要用途就是方便需要定义多个数据时减少重复操作，比如给栈开辟 1000 个字节空间 db 1000 dup (0) 就行了</p>

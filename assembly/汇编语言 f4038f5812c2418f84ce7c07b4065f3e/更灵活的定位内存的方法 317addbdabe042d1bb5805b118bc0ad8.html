@@ -1,0 +1,20 @@
+<h1 id="更灵活的定位内存的方法"><a class="anchor" href="#更灵活的定位内存的方法">#</a> 更灵活的定位内存的方法</h1>
+<h3 id="大小写转换的问题"><a class="anchor" href="#大小写转换的问题">#</a> 大小写转换的问题</h3>
+<p>在高级语言中只要用一句条件语句就行了，那么不用条件语句该怎么办呢</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647517837346-64b9e609-5d56-4cbb-b98a-cf08bee62103.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647517837346-64b9e609-5d56-4cbb-b98a-cf08bee62103.png" /></p>
+<p>从图中可得，大写与小写的二进制除第 5 位外都相同，所以一个小写字母与上一个 11011111 就会转化为大写字母</p>
+<p>一个大写字母或上一个 00100000 就会转化为小写字母</p>
+<h3 id="bx-idata-bx-idata-si"><a class="anchor" href="#bx-idata-bx-idata-si">#</a> [bx + idata]、[bx + idata + si]……</h3>
+<p>首先 si 和 di 是 8086CPU 中和编写功能相近的寄存器，si 和 di 不能够分成两个 8 为寄存器来使用</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518361409-f59f0c36-7390-494a-a633-37d5941f4447.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518361409-f59f0c36-7390-494a-a633-37d5941f4447.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518398759-bf2231f8-9abf-49e6-bc14-f9a36fd58f44.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518398759-bf2231f8-9abf-49e6-bc14-f9a36fd58f44.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518416590-c632ff3a-7cea-45d2-aafd-94f2330e7543.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647518416590-c632ff3a-7cea-45d2-aafd-94f2330e7543.png" /></p>
+<h3 id="不同的寻址方式的灵活应用"><a class="anchor" href="#不同的寻址方式的灵活应用">#</a> 不同的寻址方式的灵活应用</h3>
+<p>解决一个问题，有几个单词，让每个单词的前三个字母大写</p>
+<p>这其实就是一个二维数组问题，需要双重循环，行变量，列变量</p>
+<p>如果要双重循环就需要两个变量来储存 loop 的循环次数，但是在汇编里，只有 cx 寄存器具有保存 loop 循环次数的功能，那怎么办</p>
+<p>可以在外层循环开始的时候把外层循环次数暂放在一处，在内存循环的用内存循环的次数覆盖 cx 中的值，在内存循环结束的时候再把外层循环次数放回 cx</p>
+<p>而这个存放的位置可以是另一个寄存器，也可以是一个内存单元，但通常是使用栈</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519180711-1fc605c9-0990-44f6-94a6-5de99cdc34d3.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519180711-1fc605c9-0990-44f6-94a6-5de99cdc34d3.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519197252-1c65becf-5ab5-42f0-8a16-340c8830409f.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519197252-1c65becf-5ab5-42f0-8a16-340c8830409f.png" /></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519211287-9c4521e2-0a87-42f1-b81e-53302b815e16.png" alt="https://cdn.nlark.com/yuque/0/2022/png/23204417/1647519211287-9c4521e2-0a87-42f1-b81e-53302b815e16.png" /></p>

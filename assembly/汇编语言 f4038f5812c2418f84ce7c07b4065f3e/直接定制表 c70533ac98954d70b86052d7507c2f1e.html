@@ -1,0 +1,186 @@
+<h1 id="直接定制表"><a class="anchor" href="#直接定制表">#</a> 直接定制表</h1>
+<h2 id="描述了单元长度的标号"><a class="anchor" href="#描述了单元长度的标号">#</a> 描述了单元长度的标号</h2>
+<p>以下两个程序都是实现将 a 段的每个数相加到 b</p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%201.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%202.png" alt="Untitled" /></p>
+<p>但是第二个程序可以直接将 a 当作 a 段的地址，si 作为长度指示 a 后第 si 个字节</p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%203.png" alt="Untitled" /></p>
+<h2 id="在其他段中使用数据标号"><a class="anchor" href="#在其他段中使用数据标号">#</a> 在其他段中使用数据标号</h2>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%204.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%205.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%206.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%207.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%208.png" alt="Untitled" /></p>
+<p>也就是说在定义的时候使用数据标号会把它当作地址来用</p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%209.png" alt="Untitled" /></p>
+<p><img src="%E7%9B%B4%E6%8E%A5%E5%AE%9A%E5%88%B6%E8%A1%A8%20c70533ac98954d70b86052d7507c2f1e/Untitled%2010.png" alt="Untitled" /></p>
+<h2 id="直接定址表"><a class="anchor" href="#直接定址表">#</a> 直接定址表</h2>
+<p>简而言之，当我们需要处理多个参数，每个参数都有其对应的结果时，我们寻找每条对应间的映射关系，从而实现将结果放在一个表中，每个结果都有一个编号，而我们输入的参数通过映射关系得到对应的编号，通过编号查表得到结果</p>
+<p>而当我们的结果是所要寻找的元素的地址时，这个表就是直接定址表</p>
+<h2 id="实验-table"><a class="anchor" href="#实验-table">#</a> 实验 - table</h2>
+<p>这次实现的是屏幕第 4 行和第 5 行提示我们请输入正确的数字，0~3 对应 4 种功能</p>
+<pre><code>assume cs:code,ds:data
+
+data segment
+db  'please input right number:0,1,2,3                                               0:clear  l:change color  2:change background color  3:move up one row',0
+data ends
+
+code segment
+start:
+     mov ax,data
+     mov ds,ax
+     mov ax,0b800h
+     mov es,ax
+     mov di,4*160
+     mov bx,0
+s:   mov al,[bx]
+     mov es:[di],al
+     inc bl
+     add di,2
+     cmp al,0
+     jne s
+     
+     mov ah,2
+     mov bh,0
+     mov dh,6
+     mov dl,0
+     int 10h
+     
+     mov ah,0
+     int 16h
+          
+     mov es:[8*160],al
+     
+     cmp al,
+     sub al,30h
+     mov ah,al
+     call int7c
+     
+     mov ax,4c00h
+     int 21h
+     
+int7c:
+     jmp short int7cStart
+     
+table dw pro1,pro2,pro3,pro4
+
+int7cStart:
+      push bx
+      
+      mov bl,ah
+      mov bh,0
+      add bx,bx
+      call word ptr table[bx]
+
+int7cRet:
+      pop bx
+      ret    
+     
+pro1:
+     push ax
+     push bx
+     push si
+     push es
+     push cx     
+     
+     mov ax,0b800h
+     mov es,ax
+     mov bl,' '
+     mov si,0
+     mov cx,2000
+s1:  mov es:[si],bl
+     add si,2
+     loop s1
+     
+     pop cx
+     pop es
+     pop si
+     pop bx
+     pop ax
+     ret
+     
+pro2:
+     push ax
+     push bx
+     push cx
+     push es
+     
+     mov bx,0b800h
+     mov es,bx
+     mov bx,1
+     mov cx,2000
+s2:  mov es:[bx],al
+     add bx,2
+     loop s2  
+     
+     pop es
+     pop cx
+     pop bx
+     pop ax
+     ret
+
+pro3:
+     push ax
+     push bx
+     push cx
+     push es
+     
+     mov bx,0b800h
+     mov es,bx
+     mov bx,1
+     mov cl,4
+     shl al,cl
+     mov cx,2000
+s3:  mov es:[bx],al
+     add bx,2
+     loop s3
+     
+     pop es
+     pop cx
+     pop bx
+     pop ax
+     ret
+     
+pro4:
+     push ax
+     push bx
+     push cx
+     push es
+     push ds
+     push di
+     push si
+     
+     mov bx,0b800h
+     mov es,bx
+     mov ds,bx
+     mov si,160
+     mov di,0
+     cld 
+     mov cx,24
+     
+s4:  push cx
+     mov cx,160
+     rep movsb
+     pop cx
+     loop s4
+     
+     mov cx,80
+     mov di,0
+s4f: mov byte ptr es:[160*24+di],' '
+     add di,2 
+     loop s4f
+     
+     pop si
+     pop di
+     pop ds
+     pop es
+     pop cx
+     pop bx
+     pop ax
+     ret               
+int7cEnd:
+      nop   
+code ends
+end start
+</code></pre>

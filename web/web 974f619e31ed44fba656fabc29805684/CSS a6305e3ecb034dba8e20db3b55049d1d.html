@@ -1,0 +1,57 @@
+<hr />
+<h2 id="title-css"><a class="anchor" href="#title-css">#</a> title: CSS</h2>
+<h1 id="css"><a class="anchor" href="#css">#</a> CSS</h1>
+<h3 id="选择器"><a class="anchor" href="#选择器">#</a> 选择器</h3>
+<ul>
+<li>
+<p>全局选择器的一种用法</p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>指向特定元素的类</p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled%201.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>多个类被应用的时候指向一个元素</p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled%202.png" alt="Untitled" /></p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled%203.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>伪类和伪元素的区分</p>
+<p>一个冒号是为类，两个冒号是伪元素</p>
+<p><strong>伪类</strong>是指一个元素的某种状态</p>
+<p><strong>伪元素</strong>以类似方式表现，不过表现得是像你往标记文本中加入全新的 HTML 元素一样，而不是向现有的元素上应用类</p>
+</li>
+</ul>
+<h3 id="盒模型"><a class="anchor" href="#盒模型">#</a> 盒模型</h3>
+<p>在标准模型中给盒设置  <code>width</code>  和  <code>height</code>  ，实际设置的是 content box 。padding 和 border 再加上设置的宽高一起决定整个盒子的大小</p>
+<p>替代盒模型，所有宽度都是可见宽度，即设置  <code>width</code>  和  <code>height</code>  是对于 content-box 和 border padding 之和而言。浏览器默认使用标准模型，如果想使用替代模型，可以通过  <code>box-sizing: border-box</code>  来实现。</p>
+<ul>
+<li>
+<p>外边距重叠</p>
+<p>如果参与折叠的外边距中包含负值，折叠后的外边距的值为最大的正边距与最小的负边距（即绝对值最大的负边距）的和，；也就是说如果有 -13px 8px 100px 叠在一起，边界范围的技术就是 100px -13px 的 87px。</p>
+</li>
+</ul>
+<p>以上都是对块级模型生效，对内联模型不生效，内联模型的外边距和边框并不会将其他内联模型推开。但是如果想实现可以设置高度和宽度，并且不会换行，就使用  <code>display: inline-block</code></p>
+<h3 id="单位与值"><a class="anchor" href="#单位与值">#</a> 单位与值</h3>
+<ul>
+<li>
+<p>RGBA 与 opacity 设置透明度的区别</p>
+<p>在颜色上设置 alpha 通道与使用我们前面看到的 <code>[opacity](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity)</code>  属性有一个关键区别。当你使用不透明度时，你让元素和它里面的所有东西都不透明，而使用 RGBA 颜色只让你指定的颜色不透明。</p>
+</li>
+</ul>
+<h3 id="表单"><a class="anchor" href="#表单">#</a> 表单</h3>
+<ul>
+<li>
+<p>继承和表单元素</p>
+<p>在一些浏览器中，表单元素默认不会继承字体样式，因此如果你想要确保你的表单填入区域使用 body 中或者一个父元素中定义的字体，你需要向你的 CSS 中加入这条规则。</p>
+<figure class="highlight css"><figcaption data-lang="CSS"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token selector">button,</pre></td></tr><tr><td data-num="2"></td><td><pre>input,</pre></td></tr><tr><td data-num="3"></td><td><pre>select,</pre></td></tr><tr><td data-num="4"></td><td><pre>textarea</span> <span class="token punctuation">&#123;</span></pre></td></tr><tr><td data-num="5"></td><td><pre>  <span class="token property">font-family</span> <span class="token punctuation">:</span> inherit<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="6"></td><td><pre>  <span class="token property">font-size</span> <span class="token punctuation">:</span> 100%<span class="token punctuation">;</span></pre></td></tr><tr><td data-num="7"></td><td><pre><span class="token punctuation">&#125;</span></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="列表"><a class="anchor" href="#列表">#</a> 列表</h3>
+<ul>
+<li>
+<p>使用自定义的项目符号图片</p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled%204.png" alt="Untitled" /></p>
+<p><img src="CSS%20a6305e3ecb034dba8e20db3b55049d1d/Untitled%205.png" alt="Untitled" /></p>
+</li>
+</ul>

@@ -1,0 +1,44 @@
+<hr />
+<h2 id="title-html"><a class="anchor" href="#title-html">#</a> title: HTML</h2>
+<h1 id="html"><a class="anchor" href="#html">#</a> HTML</h1>
+<ul>
+<li>
+<p>属性</p>
+<p>一个属性必须包含如下内容：<br />
+1. 一个空格，在属性和元素名称之间。（如果已经有一个或多个属性，就与前一个属性之间有一个空格。）<br />
+2. 属性名称，后面跟着一个等于号。<br />
+3. 一个属性值，由一对引号 ““引起来。</p>
+</li>
+<li>
+<p>HTML 中的空白</p>
+<p>下面的代码是等价的</p>
+<figure class="highlight html"><figcaption data-lang="HTML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>狗 狗 很 呆 萌。<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre></pre></td></tr><tr><td data-num="3"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>狗 狗        很</pre></td></tr><tr><td data-num="4"></td><td><pre>         呆 萌。<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><p>无论你在 HTML 元素的内容中使用多少空格 (包括空白字符，包括换行)，当渲染这些代码的时候，HTML 解释器会将连续出现的空白字符减少为一个单独的空格符。</p>
+</li>
+<li>
+<p>在 HTML 中包含特殊字符</p>
+<p><img src="HTML%20cba22772532641e7b9d5a7dfcbbefe4c/Untitled.png" alt="Untitled" /></p>
+</li>
+<li>
+<p>关于 &lt;div&gt; 的警告</p>
+<p>&lt;div&gt; 非常便利但容易被滥用。由于它们没有语义值，会使 HTML 代码变得混乱。要小心使用，只有在没有更好的语义方案时才选择它，而且要尽可能少用，否则文档的升级和维护工作会非常困难。</p>
+</li>
+</ul>
+<h3 id="多媒体"><a class="anchor" href="#多媒体">#</a> 多媒体</h3>
+<ul>
+<li>
+<p>video</p>
+<p>一般来说就是用  <code>&lt;video&gt;</code>  , 属性 src 指向一个 .webm 格式的视频</p>
+<p>但是会有浏览器不支持 HTML5 的新标签，所以就用  <code>&lt;a&gt;</code>  标签指向视频</p>
+<figure class="highlight html"><figcaption data-lang="HTML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../media/html_multimedia-and-embedding_video-and-audio-content_rabbit320.webm<span class="token punctuation">"</span></span> <span class="token attr-name">controls</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="3"></td><td><pre>        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>你的浏览器不支持 HTML5视频。可点击<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>../media/rabbit320.mp4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>此链接<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>观看<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre>    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><p>不同的浏览器对多媒体的格式支持不同，所以应多准备几个格式的视频</p>
+<p>将  <code>src</code>  属性从  <code>&lt;video&gt;</code>  标签中移除，转而将它放在几个单独的标签  <code>&lt;source&gt;</code>  当中。浏览器会去匹配第一个自己能支持的格式</p>
+<figure class="highlight html"><figcaption data-lang="HTML"></figcaption><table><tr><td data-num="1"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span> <span class="token attr-name">controls</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="2"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rabbit320.mp4<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>video/mp4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="3"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>source</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rabbit320.webm<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>video/webm<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="4"></td><td><pre>  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>你的浏览器不支持 HTML5 视频。可点击<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>rabbit320.mp4<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>此链接<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>观看<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span></pre></td></tr><tr><td data-num="5"></td><td><pre><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>video</span><span class="token punctuation">></span></span></pre></td></tr></table></figure><p>每个 <code>&lt;source&gt;</code>  标签页含有一个  <code>type</code>   属性，这个属性是可选的，但是建议你添加上这个属性一它包含了视频文件的 MIME types , 同时刘览器也会通过检查这个属性来迅速的跳过那些不支特的格式。果你没有添加 <code>type</code>  属性，浏览器会尝试加载每一个文件，直到找到一个能正确播放的格式，这样会消耗掉大量的时间和资源。</p>
+</li>
+<li>
+<p>audio</p>
+<p><code>&lt;audio&gt;</code>  标签与  <code>&lt;video&gt;</code>  标签的用法几乎无区别</p>
+<p><code>&lt;audio&gt;</code>  标签没有视觉部分，所以没有  <code>width</code>  和  <code>height</code>  ， <code>poster</code>  属性</p>
+</li>
+</ul>
+<h3 id="嵌入"><a class="anchor" href="#嵌入">#</a> 嵌入</h3>
+<p>为了提高速度，在主内容完成加载后，使用 JavaScript 设置  <code>&lt;iframe&gt;</code>  的  <code>src</code> <br />
+ 属性是个好主意。这使你的页面可以更快地被使用，并减少你的官方页面加载时间</p>
