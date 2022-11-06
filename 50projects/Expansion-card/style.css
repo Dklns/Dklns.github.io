@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    width: 90vw;
+}
+
+.panel {
+    flex: 0.5;
+    color: #78b2e4;
+    height: 80vh;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50px;
+    margin: 10px;
+    cursor: pointer;
+    position: relative;
+    transition: all 700ms ease-in;
+}
+
+.panel h3 {
+    font-size: 20px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    margin: 0;
+    opacity: 0;
+}
+
+.panel.active {
+    flex: 5;
+}
+
+.panel.active h3 {
+    opacity: 1;
+    transition: opacity 0.3s ease-in 0.4s;
+}
+
+.p1 {
+    background-image: url(https://cdn.jsdelivr.net/gh/Dklns/ImgHosting/Blog-PIC/wallhaven-y8yprk.jpg);
+}
+
+.p2 {
+    background-image: url(https://cdn.jsdelivr.net/gh/Dklns/ImgHosting/Blog-PIC/wallhaven-rdk77j.jpg);
+}
+
+.p3 {
+    background-image: url(https://cdn.jsdelivr.net/gh/Dklns/ImgHosting/Blog-PIC/wallhaven-j3632q.jpg);
+}
+
+.p4 {
+    background-image: url(https://cdn.jsdelivr.net/gh/Dklns/ImgHosting/Blog-PIC/wallhaven-z8ld5y.jpg);
+}
+
+.p5 {
+    background-image: url(https://cdn.jsdelivr.net/gh/Dklns/ImgHosting/Blog-PIC/wallhaven-x8v7vo.jpg);
+}
